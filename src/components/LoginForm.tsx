@@ -16,9 +16,12 @@ export type LoginFormProps = {
 
 const LoginForm: React.FC<LoginFormProps> = ({
   onSubmit,
-  buttonLabel = "Se connecter",
+  buttonLabel = null,
 }) => {
   const { t } = useTranslation();
+  if (!buttonLabel) {
+    buttonLabel = t("login");
+  }
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -39,14 +42,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder={t("username") || "Username"}
+        placeholder={t("username")}
         value={username}
         onChangeText={setUsername}
         autoCapitalize="none"
         style={styles.input}
       />
       <TextInput
-        placeholder={t("password") || "pptest"}
+        placeholder={t("password")}
         value={password}
         onChangeText={setPassword}
         secureTextEntry

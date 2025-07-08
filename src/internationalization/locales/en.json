@@ -1,6 +1,15 @@
 {
     "username": "Username",
     "password": "Password",
+    "birthdate": "Birthdate",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "register": "Register",
+    "registerSuccess": "Registration successful",
+    "registerError": "Registration failed",
     "login": "Log In",
-    "error": "Login failed"
+    "loginSuccess": "Login successful",
+    "loginFailed": "Login failed",
+    "loading": "Loading...",
+    "motto": "What are we doing this weekend?"
 }

@@ -1,6 +1,15 @@
 {
     "username": "Nom d'utilisateur",
     "password": "Mot de passe",
+    "birthdate": "Date de naissance",
+    "email": "Email",
+    "phoneNumber": "Numéro de téléphone",
+    "register": "S'inscrire",
+    "registerSuccess": "Inscription réussie",
+    "registerError": "Échec de l'inscription",
     "login": "Se connecter",
-    "error": "Échec de la connexion"
+    "loginSuccess": "Connexion réussie",
+    "loginFailed": "Échec de la connexion",
+    "loading": "Chargement...",
+    "motto": "On fait quoi ce week-end ?"
 }
