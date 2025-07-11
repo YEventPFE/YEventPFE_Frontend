@@ -31,6 +31,7 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthdate, setBirthdate] = useState<Date | null>(null);
+    const [birthdateString, setBirthdateString] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -71,12 +72,15 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
             />
             <TextInput
                 placeholder={t("birthdate")}
-                value={birthdate ? birthdate.toISOString().split('T')[0] : ''}
+                value={birthdateString}
                 onChangeText={(text) => {
                     try{
+                        setBirthdateString(text);
                         setBirthdate(new Date(text))
+                        console.log("Birthdate set to:", birthdate);
                     }catch (e) {
                         setError("Invalid date format");
+                        console.error("Invalid date format", e);
                         return;
                     }
                 }}
@@ -105,6 +109,9 @@ export default RegisterForm;
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 20,
     },
     input: {

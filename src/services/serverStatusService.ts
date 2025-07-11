@@ -1,4 +1,4 @@
-import ServerVersionDTO from '@/models/serverVersionDTO';
+import { ServerVersionDTO } from '@/models/serverVersionDTO';
 
 export const getServerVersion = async (): Promise<string> => {
     const apiUrl = process.env.EXPO_PUBLIC_API_URL;
@@ -15,7 +15,16 @@ export const getServerVersion = async (): Promise<string> => {
         throw new Error('Failed to fetch server version');
     }
 
+    if (!response.headers.get('Content-Type')?.includes('application/json')) {
+        throw new Error('Response is not in JSON format');
+    }
     const data = await response.json();
-    var dto = new ServerVersionDTO(data.version);
-    return ServerVersionDTO.prototype.version = dto.version;
+
+    if (data && data.version) {
+        const serverVersion: ServerVersionDTO = data as ServerVersionDTO;
+        return serverVersion.version;
+    }
+    else{
+        throw new Error('Invalid server version response');
+    }
 };

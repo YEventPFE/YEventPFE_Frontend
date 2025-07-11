@@ -1,7 +1,3 @@
-export default class ServerVersionDTO{
+export type ServerVersionDTO = {
     version: string;
-
-    constructor(version: string) {
-        this.version = version;
-    }
 }

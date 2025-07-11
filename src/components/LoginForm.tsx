@@ -8,15 +8,18 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useTranslation } from "react-i18next";
+import AppTitle from "@/components/AppTitle";
 
 export type LoginFormProps = {
   onSubmit: (username: string, password: string) => Promise<void>;
   buttonLabel?: string;
+  showTitle?: boolean;
 };
 
 const LoginForm: React.FC<LoginFormProps> = ({
   onSubmit,
   buttonLabel = null,
+  showTitle = false,
 }) => {
   const { t } = useTranslation();
   if (!buttonLabel) {
@@ -41,6 +44,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
   return (
     <View style={styles.container}>
+      {showTitle && <AppTitle showSubtitle={false} />}
       <TextInput
         placeholder={t("username")}
         value={username}
