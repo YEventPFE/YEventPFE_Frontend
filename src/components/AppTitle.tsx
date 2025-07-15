@@ -7,18 +7,21 @@ type AppTitleProps = {
     showSubtitle?: Boolean;
 }
 
-const AppTitle : React.FC<AppTitleProps> = (
+const AppTitle : React.FC<AppTitleProps> = ({
     showSubtitle
-) => {
+}) => {
     const { t } = useTranslation();
+    console.log('AppTitle rendered with showSubtitle:', showSubtitle);
     return (
     <>
         <Text style={ styles.title}>
             YEvent
         </Text>
-        <Text style={ styles.subtitle}>
-            {showSubtitle ? t('motto') : ''}
-        </Text>
+        {showSubtitle !== false && (
+            <Text style={styles.subtitle}>
+                {t('motto')}
+            </Text>
+        )}
     </>
     );
 }
