@@ -1,12 +1,27 @@
-// just welcome text
-
-
 import { useTranslation } from "react-i18next";
 import { View, Text, StyleSheet } from "react-native";
 import AppTitle from "@/components/AppTitle";
+import { useFonts } from 'expo-font';
+import WaitingScreen from "@/components/WaitingScreen";
 
 export default function Main() {
   const { t } = useTranslation();
+
+  const [fontsLoaded] = useFonts({
+    "WorkSans-Bold": require("assets/fonts/WorkSans/WorkSans-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View>
+        <Text>Loading fonts...</Text>
+        <WaitingScreen
+          loadingText={t('loading_fonts')}
+          showTitle={false}
+        />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

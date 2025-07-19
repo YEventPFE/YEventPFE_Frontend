@@ -1,11 +1,23 @@
-import i18n from 'i18next';
+import i18n, { LanguageDetectorAsyncModule } from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import RNLanguageDetector from '@os-team/i18next-react-native-language-detector';
+import * as Localization from 'expo-localization';
 import * as en from './locales/en.json';
 import * as fr from './locales/fr.json';
 
+
+const languageDetector: LanguageDetectorAsyncModule  = {
+  type: 'languageDetector',
+  async: true,
+  detect: (callback: (lang: string) => void) => {
+    const locale = Localization.getLocales()[0]?.languageCode || 'en';
+    callback(locale);
+  },
+  init: () => {},
+  cacheUserLanguage: () => {},
+};
+
 i18n
-  .use(RNLanguageDetector)
+  .use(languageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',

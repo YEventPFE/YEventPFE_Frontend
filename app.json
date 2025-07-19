@@ -34,10 +34,27 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true
-    }
+      ],
+      "expo-font",
+      {
+        "fonts": ["./assets/fonts/WorkSans/WorkSans-Bold.ttf"],
+        "android": {
+          "fonts": [
+            {
+              "fontFamily": "WorkSans-Bold.ttf",
+              "fontDefinitions": [
+                {
+                  "path": "./assets/fonts/WorkSans/WorkSans-Bold.ttf",
+                  "weight": 800
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "experiments": {
+    "typedRoutes": true
   }
 }
