@@ -22,6 +22,7 @@ export type RegisterFormProps = {
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
+import CrossPlatformDatePicker from "./CrossPlatformDatePicker";
 
 const RegisterForm : React.FC<RegisterFormProps> = ({
   onSubmit,
@@ -35,7 +36,6 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthdate, setBirthdate] = useState<Date | null>(new Date());
-    const [birthdateString, setBirthdateString] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -74,22 +74,11 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
                 autoCapitalize="none"
                 style={styles.input}
             />
-            <TextInput
-                placeholder={t("birthdate")}
-                value={birthdateString}
-                onChangeText={(text) => {
-                    try{
-                        setBirthdateString(text);
-                        setBirthdate(new Date(text))
-                        console.log("Birthdate set to:", birthdate);
-                    }catch (e) {
-                        setError("Invalid date format");
-                        console.error("Invalid date format", e);
-                        return;
-                    }
+            <CrossPlatformDatePicker
+                date={birthdate || new Date()}
+                onChange={(date: Date) => {
+                    setBirthdate(date);
                 }}
-                autoCapitalize="none"
-                style={styles.input}
             />
             <TextInput
                 placeholder={t("phoneNumber")}
