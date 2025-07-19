@@ -1,6 +1,9 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import Colors from '@/constants/colors';
+import Typography from '@/constants/typography';
+import GlobalStyles from '@/styles/global';
 
 
 type AppTitleProps = {
@@ -30,15 +33,17 @@ export default AppTitle;
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        ...GlobalStyles.text,
+        fontFamily: Typography.fontFamily.bold,
+        fontSize: Typography.fontSize.xl,
+        color: Colors.primary,
         textAlign: 'center',
-        marginVertical: 20,
+        marginBottom: 8,
     },
     subtitle: {
-        fontSize: 16,
+        ...GlobalStyles.text,
+        fontSize: Typography.fontSize.medium,
+        color: Colors.textSecondary,
         textAlign: 'center',
-        color: '#666',
-        marginBottom: 20,
-    }
+    },
 });

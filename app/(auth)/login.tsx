@@ -3,6 +3,10 @@ import { login } from "@/viewModels/authViewModel";
 import { useTranslation } from "react-i18next";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { useRouter } from "expo-router";
+import Colors from "@/constants/colors";
+import Typography from "@/constants/typography";
+import GlobalStyles from "@/styles/global";
+
 
 export default function Login() {
     const { t } = useTranslation();
@@ -37,17 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    width: "80%",
-  },
-  error: {
-    color: "red",
-    marginBottom: 10,
-  },
+    padding: 20,
+    backgroundColor: Colors.background,
+  }
 });

@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import AppTitle from "@/components/AppTitle";
+import Colors from "@/constants/colors";
+import Typography from "@/constants/typography";
+import GlobalStyles from "@/styles/global";
 
 export type LoginFormProps = {
   onSubmit: (username: string, password: string) => Promise<void>;
@@ -65,7 +68,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
       {loading ? (
         <ActivityIndicator size="small" color="#333" />
       ) : (
-        <Button title={buttonLabel} onPress={handleLogin} />
+        <Button title={buttonLabel} color={styles.button.backgroundColor} onPress={handleLogin} />
       )}
     </View>
   );
@@ -73,20 +76,27 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
 export default LoginForm;
 
+
 const styles = StyleSheet.create({
   container: {
-    gap: 12,
-    padding: 16,
+    ...GlobalStyles.container,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: Colors.background,
   },
   input: {
-    height: 44,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    borderRadius: 6,
+    ...GlobalStyles.textInput,
+    marginBottom: 10,
   },
   error: {
-    color: "red",
-    fontSize: 14,
+    color: Colors.error,
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 5,
   },
 });

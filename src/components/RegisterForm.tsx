@@ -19,6 +19,10 @@ export type RegisterFormProps = {
   buttonLabel?: string;
 };
 
+import Colors from "@/constants/colors";
+import Typography from "@/constants/typography";
+import GlobalStyles from "@/styles/global";
+
 const RegisterForm : React.FC<RegisterFormProps> = ({
   onSubmit,
     buttonLabel = null,
@@ -97,6 +101,8 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
             {error && <Text style={styles.error}>{error}</Text>}
             <Button
                 title={buttonLabel}
+                color={styles.button.backgroundColor}
+                accessibilityLabel={buttonLabel}
                 onPress={handleRegister}
                 disabled={loading}
             />
@@ -114,20 +120,25 @@ export default RegisterForm;
 
 const styles = StyleSheet.create({
     container: {
+        ...GlobalStyles.container,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
     },
     input: {
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
+        ...GlobalStyles.textInput,
         marginBottom: 10,
         paddingHorizontal: 10,
     },
     error: {
-        color: 'red',
+        ...GlobalStyles.text,
+        color: Colors.error,
         marginBottom: 10,
     },
+    button: {
+        ...GlobalStyles.button,
+        backgroundColor: Colors.primary,
+        marginTop: 10,
+    }
 });
