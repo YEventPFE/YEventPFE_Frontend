@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
 import LoginForm from './LoginForm';
 
@@ -70,10 +70,9 @@ describe('LoginForm', () => {
         fireEvent.changeText(usernameInput, 'testuser');
         fireEvent.changeText(passwordInput, 'testpass');
         fireEvent.press(loginButton);
-
-        // Wait for the error message to appear
-        await new Promise(resolve => setTimeout(resolve, 0));
-
-        expect(getByText(errorMessage)).toBeTruthy();
+        
+        await waitFor(() => {
+            expect(getByText(errorMessage)).toBeTruthy();
+        });
     });
 });

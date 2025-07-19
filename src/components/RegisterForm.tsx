@@ -30,7 +30,7 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [birthdate, setBirthdate] = useState<Date | null>(null);
+    const [birthdate, setBirthdate] = useState<Date | null>(new Date());
     const [birthdateString, setBirthdateString] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [error, setError] = useState<string | null>(null);
@@ -100,7 +100,12 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
                 onPress={handleRegister}
                 disabled={loading}
             />
-            {loading && <ActivityIndicator size="small" color="#333" />}
+            {loading && (
+                <>
+                    <ActivityIndicator size="small" color="#333" />
+                    <Text>{t('loading')}</Text>
+                </>
+            )}
         </View>
     );
 }

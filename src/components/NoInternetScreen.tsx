@@ -14,10 +14,12 @@ const NoInternetScreen: React.FC<NoInternetScreenProps> = ({ onRetry }) => {
         <View style={styles.container}>
             <Text style={styles.title}>{t('no_internet_connection')}</Text>
             <Text style={styles.message}>{t('please_check_internet_connection')}</Text>
-            <Button title="Retry" onPress={onRetry} />
+            <Button title={t('retry')} onPress={onRetry} />
         </View>
     );
 };
+
+export default NoInternetScreen;
 
 const styles = StyleSheet.create({
     container: {
