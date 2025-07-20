@@ -1,8 +1,23 @@
-// Controller to a custom authentication service in React Native
 import { login as serviceLogin, register as serviceRegister } from '../services/authService';
+import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
+import { save } from '../utils/asyncStorage';
 
+interface LoginResponse {
+  token: string;
+  user: {
+    id: string;
+    name: string;
+  };
+}
 
-export const login = async (username: string, password: string) => { // todo specify return types
+interface RegisterResponse {
+  success: boolean;
+  message: string;
+}
+
+export const login = async (username: string, password: string) : Promise<LoginResponse> => {
   try {
     const response = await serviceLogin(username, password);
 
@@ -10,7 +25,8 @@ export const login = async (username: string, password: string) => { // todo spe
     if (!response) {
       throw new Error('Login failed');
     }
-
+    
+    save('jwt', response.token);
     return response;
   } catch (error) {
     console.error('Error during login:', error);
@@ -18,16 +34,15 @@ export const login = async (username: string, password: string) => { // todo spe
   }
 }
 
-export const register = async (username: string, password: string, email: string, birthdate: Date, phoneNumber: string) => { //todo specify return types
+export const register = async (username: string, password: string, email: string, birthdate: Date, phoneNumber: string) : Promise<RegisterResponse> => {
   try {
     const response = await serviceRegister(username, password, email, birthdate, phoneNumber);
 
-    if (!response.ok) {
+    if (!response.success) {
       throw new Error('Registration failed');
     }
 
-    const data = await response.json();
-    return data;
+    return response;
   } catch (error) {
     console.error('Error during registration:', error);
     throw error;

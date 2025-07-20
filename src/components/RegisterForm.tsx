@@ -79,6 +79,8 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
                 onChange={(date: Date) => {
                     setBirthdate(date);
                 }}
+                placeholderText={t("select_birthdate")}
+                showYearDropdown={true}
             />
             <TextInput
                 placeholder={t("phoneNumber")}

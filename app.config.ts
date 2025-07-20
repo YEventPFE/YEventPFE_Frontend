@@ -2,7 +2,8 @@ export default {
   expo: {
     "plugins": [
       "expo-font",
-      "expo-localization"
+      "expo-localization",
+      "expo-secure-store",
     ],
     extra: {
       expectedServerVersion: '0.1.0',

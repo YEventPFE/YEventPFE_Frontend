@@ -11,7 +11,22 @@ type RegisterDTO = {
     phoneNumber: string;
 };
 
-export const login = async (name: string, password: string) => {
+type LoginResponse = {
+    token: string;
+    user: {
+        id: string;
+        name: string;
+    };
+};
+
+type RegisterResponse = {
+    success: boolean;
+    message: string;
+};
+
+import * as SecureStore from 'expo-secure-store';
+
+export const login = async (name: string, password: string): Promise<LoginResponse> => {
   if (!name || !password) {
     throw new Error('Username and password are required');
   }
@@ -32,11 +47,33 @@ export const login = async (name: string, password: string) => {
     throw new Error('Login failed');
   }
 
-  console.log('Login response:', response);
-  return await response.json();
+  //parse 'userDto' from response
+  const jsonResponse = await response.json();
+  console.log('Parsed response:', jsonResponse);
+  const userDto = jsonResponse.userDto;
+  if (!userDto || !userDto.name) {
+    throw new Error('Invalid response from server');
+  }
+  const responseName = userDto.name;
+  const responseId = userDto.id;
+  const token = jsonResponse.token;
+
+
+  if (!token) {
+    throw new Error('Token not found in response');
+  }
+
+
+  return {
+    token: token,
+    user: {
+      id: responseId,
+      name: responseName
+    }
+  }
 };
 
-export const register = async (name: string, password: string, email: string, birthdate: Date, phoneNumber: string) => {
+export const register = async (name: string, password: string, email: string, birthdate: Date, phoneNumber: string) : Promise<RegisterResponse> => {
   if (!name || !password || !email || !birthdate || !phoneNumber) {
     throw new Error('All fields are required');
   }
@@ -57,5 +94,8 @@ export const register = async (name: string, password: string, email: string, bi
     throw new Error('Registration failed');
   }
 
-  return await response.json();
+  return {
+    success: true,
+    message: 'Registration successful'
+  };
 }
