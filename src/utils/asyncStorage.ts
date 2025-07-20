@@ -14,15 +14,16 @@ export async function save(key : string, value: string) : Promise<void> {
   }
 }
 
-export async function getValueFor(key:string) : Promise<any> {
+export async function getValueFor<T>(key:string) : Promise<T> {
   try {
     if (Platform.OS === 'web') {
       const value = await AsyncStorage.getItem(key);
-      return value;
+      return value as T;
     }
     const value = await SecureStore.getItemAsync(key);
-    return value;
+    return value as T;
   } catch (error) {
     console.error("Error retrieving data:", error);
   }
+  return null as T;
 }

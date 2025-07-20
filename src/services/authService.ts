@@ -1,30 +1,5 @@
-type LoginDTO = {
-  name: string;
-  password: string;
-}
+import { LoginDTO, LoginResponse, RegisterDTO, RegisterResponse } from "@/dto/authDTO";
 
-type RegisterDTO = {
-    name: string;
-    password: string;
-    email: string;
-    birthdate: Date;
-    phoneNumber: string;
-};
-
-type LoginResponse = {
-    token: string;
-    user: {
-        id: string;
-        name: string;
-    };
-};
-
-type RegisterResponse = {
-    success: boolean;
-    message: string;
-};
-
-import * as SecureStore from 'expo-secure-store';
 
 export const login = async (name: string, password: string): Promise<LoginResponse> => {
   if (!name || !password) {
