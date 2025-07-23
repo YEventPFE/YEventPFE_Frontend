@@ -6,23 +6,23 @@ import { Button } from '@react-navigation/elements';
 const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.container.background,
     padding: 16,
   },
   text: {
     fontFamily: Typography.fontFamily.regular,
     fontSize: Typography.fontSize.medium,
-    color: Colors.textPrimary,
+    color: Colors.text.primary,
   },
   textInput: {
     height: 40,
-    borderColor: Colors.border,
+    borderColor: Colors.container.border,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
     fontFamily: Typography.fontFamily.regular,
     fontSize: Typography.fontSize.medium,
-    color: Colors.textPrimary,
+    color: Colors.text.primary,
   },
   button: {
     backgroundColor: Colors.primary,
