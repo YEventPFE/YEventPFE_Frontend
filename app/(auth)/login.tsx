@@ -38,10 +38,10 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   container: {
+    ...GlobalStyles.container,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: Colors.background,
   }
 });

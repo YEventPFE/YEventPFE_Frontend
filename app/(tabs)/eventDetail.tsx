@@ -1,20 +1,25 @@
 import { useTranslation } from "react-i18next";
 import { View, Text, StyleSheet } from "react-native";
 import EventDetails from "@/components/EventDetails";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEventContext } from "@/context/EventContext";
 import { getEventById } from "@/services/eventService";
 import { EventDTO } from "@/dto/eventDTO";
 import { useEffect, useState } from "react";
+import { UserDTO } from "@/dto/userListDTO";
+import { fetchUserAndRedirect, getUser } from "@/viewModels/authViewModel";
 
 export default function EventDetail() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { selectedEvent } = useEventContext();
+  const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
   const [eventDetail, setEventDetail] = useState<EventDTO | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    fetchUserAndRedirect(router, setUser);
+
     if (!id) {
       console.error("No event ID provided in search params.");
       return;

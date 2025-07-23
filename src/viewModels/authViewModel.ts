@@ -2,9 +2,9 @@ import { login as serviceLogin, register as serviceRegister } from '../services/
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { save } from '../utils/asyncStorage';
 import { UserDTO } from '@/dto/userListDTO';
 import { LoginResponse } from '@/dto/authDTO';
+import { Router } from 'expo-router';
 
 interface RegisterResponse {
   success: boolean;
@@ -88,3 +88,19 @@ export const getUser = async () : Promise<{ token: string, user: UserDTO } | nul
 export const logOut = async () : Promise<void> => {
   eraseUser();
 }
+
+export const fetchUserAndRedirect = async (router: Router, setUser: (user: { token: string, user: UserDTO } | undefined) => void) => {
+  try {
+    const fetchedUser = await getUser();
+    if (!fetchedUser) {
+      console.error("No user found, redirecting to login.");
+      router.replace("/(auth)/login");
+      return;
+    }
+    setUser(fetchedUser);
+    console.log("User fetched successfully:", fetchedUser);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    router.replace("/(auth)/login");
+  }
+};

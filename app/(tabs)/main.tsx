@@ -9,7 +9,7 @@ import { EventDTO } from "@/dto/eventDTO";
 import EventList from "@/components/EventList";
 import { useRouter } from "expo-router";
 import { useEventContext } from "@/context/EventContext";
-import { getUser, logOut } from "@/viewModels/authViewModel";
+import { fetchUserAndRedirect, logOut } from "@/viewModels/authViewModel";
 import { UserDTO } from "@/dto/userListDTO";
 
 
@@ -17,7 +17,7 @@ export default function Main() {
   const { t } = useTranslation();
   const [events, setEvents] = useState<EventDTO[]>([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<{ token: string , user: UserDTO } | null>(null);
+  const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
 
 
   const { setSelectedEvent } = useEventContext();
@@ -28,15 +28,11 @@ export default function Main() {
   });
 
   useEffect(() => {
-    const getEvents = async () => {
+    const fetchEvents = async () => {
       await fetchRandomEvents();
     };
-    const getUser = async () => {
-      const user = await fetchUser();
-      setUser(user);
-    };
-    getEvents();
-    getUser();
+    fetchUserAndRedirect(router, setUser);
+    fetchEvents();
   }, []);
 
   if (!fontsLoaded) {
@@ -94,9 +90,6 @@ export default function Main() {
     </View>
   );
 
-  async function fetchUser() : Promise<{ token: string , user: UserDTO } | null> {
-    return getUser();
-  }
   async function fetchRandomEvents() {
     console.log("Fetching random events...");
     setLoading(true);
