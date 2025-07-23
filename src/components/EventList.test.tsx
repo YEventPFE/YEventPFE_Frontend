@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
 import EventList from './EventList';
+import { EventDTO } from '@/dto/eventDTO';
 
 
 jest.mock('react-i18next', () => ({
@@ -23,31 +24,28 @@ describe('EventList', () => {
     const mockOnEventPress = jest.fn();
     const mockOnTagPress = jest.fn();
 
-    const mockList = [
+    const mockList : EventDTO[] = [
         {
             id: "1",
             name: "Test Event",
             description: "This is a test event.",
-            ownerId: "owner1",
-            date: "2025-01-01",
+            startDate: "2025-01-01",
+            endDate: "2025-01-02",
             location: "Test Location",
-            startTime: "10:00",
-            endTime: "12:00",
-            isMature: false,
-            tags: ["test", "event"]
-        }
-        , 
+            ownerId: "owner123",
+            tags: ["test", "event"],
+            isMature: true
+        },
         {
             id: "2",
-            name: "Sample Event",
-            description: "This is a sample event.",
-            ownerId: "owner2",
-            date: "2025-01-02",
-            location: "Sample Location",
-            startTime: "14:00",
-            endTime: "16:00",
-            isMature: true,
-            tags: ["sample", "event"]
+            name: "Another Event",
+            description: "This is another test event.",
+            startDate: "2025-02-01",
+            endDate: "2025-02-02",
+            location: "Another Location",
+            ownerId: "owner456",
+            tags: ["another", "event"],
+            isMature: false,
         }
     ];
 

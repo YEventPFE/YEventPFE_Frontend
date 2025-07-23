@@ -40,44 +40,36 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.container.background,
         borderRadius: 10,
     },
     eventItem: {
         marginBottom: 15,
         padding: 10,
         borderRadius: 5,
-        backgroundColor: Colors.accent,
+        backgroundColor: Colors.container.accent,
     },
     eventName: {
-        ...Typography.fontFamily,
-        ...Typography.fontSize,
-        color: Colors.primary,
+        ...Typography.title,
     },
     eventDescription: {
-        ...Typography.fontFamily,
-        ...Typography.fontSize,
-        color: Colors.primary,
+        ...Typography.subtitle,
     },
     eventDate: {
-        ...Typography.fontFamily,
+        ...Typography.body,
         ...Typography.fontSize,
-        color: Colors.primary,
     },
     eventLocation: {
-        ...Typography.fontFamily,
+        ...Typography.body,
         ...Typography.fontSize,
-        color: Colors.primary,
     },
     eventOwner: {
-        ...Typography.fontFamily,
+        ...Typography.body,
         ...Typography.fontSize,
-        color: Colors.primary,
     },
     tag: {
-        ...Typography.fontFamily,
+        ...Typography.body,
         ...Typography.fontSize,
-        color: Colors.primary,
         marginRight: 5,
     },
 })

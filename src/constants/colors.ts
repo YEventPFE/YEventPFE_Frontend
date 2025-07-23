@@ -1,30 +1,32 @@
 const BaseColors = {
-    "Gunmetal": "#30343F",
-    "Ghost White": "#FAFAFF",
-    "Periwinkle": "#E4D9FF",
-    "Delft Blue": "#273469",
-    "Space Cadet": "#1E2749",
+    gunMetal: "#30343F",
+    ghostWhite: "#FAFAFF",
+    periwinkle: "#E4D9FF",
+    delftBlue: "#273469",
+    spaceCadet: "#1E2749",
 
-    "Red": "#FF0000",
-}
+    red: "#FF0000",
+};
 
 const Colors = {
-    background: BaseColors["Ghost White"],
-    surface: BaseColors["Periwinkle"],
+    primary: BaseColors.delftBlue,
+    secondary: BaseColors.spaceCadet,
 
-    primary: BaseColors["Delft Blue"],
-    secondary: BaseColors["Space Cadet"],
-
-    textPrimary: BaseColors["Gunmetal"],
-    textSecondary: BaseColors["Delft Blue"],
-
-    border: BaseColors["Gunmetal"],
-
-    accent: BaseColors["Periwinkle"],
-
-    error: BaseColors["Red"],
-    success: BaseColors["Delft Blue"],
-    warning: BaseColors["Gunmetal"],
+    container:{
+        background: BaseColors.ghostWhite,
+        surface: BaseColors.periwinkle,
+        border: BaseColors.gunMetal,
+        accent: BaseColors.periwinkle,
+    },
+    text: {
+        primary: BaseColors.gunMetal,
+        secondary: BaseColors.delftBlue,
+        title: BaseColors.delftBlue,
+        error: BaseColors.red,
+        success: BaseColors.delftBlue,
+        warning: BaseColors.gunMetal,
+        tag: BaseColors.spaceCadet,
+    },
 };
 
 export default Colors;
