@@ -32,7 +32,7 @@ describe('EventList', () => {
             startDate: "2025-01-01",
             endDate: "2025-01-02",
             location: "Test Location",
-            ownerId: "owner123",
+            owner: { id: "123", name: "Owner Name" },
             tags: ["test", "event"],
             isMature: true
         },
@@ -43,7 +43,7 @@ describe('EventList', () => {
             startDate: "2025-02-01",
             endDate: "2025-02-02",
             location: "Another Location",
-            ownerId: "owner456",
+            owner: { id: "456", name: "Owner Name 2" },
             tags: ["another", "event"],
             isMature: false,
         }
@@ -63,7 +63,7 @@ describe('EventList', () => {
         expect(getByText("This is a test event.")).toBeTruthy();
         expect(getByText("2025-01-01 - 2025-01-02")).toBeTruthy();
         expect(getByText(`${t('location')} : Test Location`)).toBeTruthy();
-        expect(getByText(`${t('owner')} : owner123`)).toBeTruthy();
+        expect(getByText(`${t('owner')} : Owner Name`)).toBeTruthy();
     });
 
     it('calls onEventPress when an event is pressed', () => {

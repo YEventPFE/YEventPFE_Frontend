@@ -6,10 +6,11 @@ import { useTranslation } from "react-i18next";
 
 type EventDetailsProps = {
     event: EventDTO,
-    onTagPress?: (tag: string) => void
+    onTagPress?: (tag: string) => void,
+    onUserPress?: (userId: string) => void
 };
 
-export default function EventDetails({ event, onTagPress }: EventDetailsProps) {
+export default function EventDetails({ event, onTagPress, onUserPress }: EventDetailsProps) {
     const { t } = useTranslation();
     return (
         <ScrollView style={styles.container}>
@@ -17,7 +18,9 @@ export default function EventDetails({ event, onTagPress }: EventDetailsProps) {
             <Text style={styles.eventDescription}>{event.description}</Text>
             <Text style={styles.eventDate}>{event.startDate} - {event.endDate}</Text>
             <Text style={styles.eventLocation}>{t('location') + " : "}{event.location}</Text>
-            <Text style={styles.eventOwner}>{t('owner') + " : "}{event.ownerId}</Text>
+            <Pressable onPress={() => onUserPress?.(event.owner.id)}>
+                <Text style={styles.eventOwner}>{t('owner') + " : "}{event.owner.name}</Text>
+            </Pressable>
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {event.tags.map(tag => (
                     <Pressable key={tag} onPress={() => onTagPress?.(tag)}>

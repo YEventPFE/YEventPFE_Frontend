@@ -30,7 +30,7 @@ describe('EventDetails', () => {
         startDate: "2025-01-01",
         endDate: "2025-01-02",
         location: "Test Location",
-        ownerId: "owner123",
+        owner: { id: "123", name: "Owner Name" },
         tags: ["test", "event"],
         isMature: true
     };
@@ -47,7 +47,7 @@ describe('EventDetails', () => {
         expect(getByText(mockEvent.description)).toBeTruthy();
         expect(getByText(`${mockEvent.startDate} - ${mockEvent.endDate}`)).toBeTruthy();
         expect(getByText(`${t('location')} : ${mockEvent.location}`)).toBeTruthy();
-        expect(getByText(`${t('owner')} : ${mockEvent.ownerId}`)).toBeTruthy();
+        expect(getByText(`${t('owner')} : ${mockEvent.owner.name}`)).toBeTruthy();
         mockEvent.tags.forEach(tag => {
             expect(getByText(`#${tag}`)).toBeTruthy();
         });

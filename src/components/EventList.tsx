@@ -7,11 +7,12 @@ import { useTranslation } from "node_modules/react-i18next";
 type EventListProps = {
     events: EventDTO[],
     onEventPress?: (event: EventDTO) => void,
-    onTagPress?: (tag: string) => void
+    onTagPress?: (tag: string) => void,
+    onUserPress?: (userId: string) => void
     };
 
 
-export default function EventList({ events, onEventPress, onTagPress }: EventListProps) {
+export default function EventList({ events, onEventPress, onTagPress, onUserPress }: EventListProps) {
     const { t } = useTranslation();
     return (
         <ScrollView style={style.container}>
@@ -23,7 +24,9 @@ export default function EventList({ events, onEventPress, onTagPress }: EventLis
                         <Text style={style.eventDescription}>{event.description}</Text>
                         <Text style={style.eventDate}>{event.startDate} - {event.endDate}</Text>
                         <Text style={style.eventLocation}>{t('location') + " : "}{event.location}</Text>
-                        <Text style={style.eventOwner}>{t('owner') + " : "}{event.ownerId}</Text>
+                        <Pressable onPress={() => onUserPress?.(event.owner.id)}>
+                            <Text style={style.eventOwner}>{t('owner') + " : "}{event.owner.name}</Text>
+                        </Pressable>
                         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                             {event.tags.map(tag => (
                                 <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
