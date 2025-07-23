@@ -1,7 +1,10 @@
+import { UserDTO } from "./userListDTO";
+
 export type LoginDTO = {
   name: string;
   password: string;
 }
+
 export type RegisterDTO = {
     name: string;
     password: string;
@@ -12,10 +15,7 @@ export type RegisterDTO = {
 
 export type LoginResponse = {
     token: string;
-    user: {
-        id: string;
-        name: string;
-    };
+    user: UserDTO;
 };
 
 export type RegisterResponse = {

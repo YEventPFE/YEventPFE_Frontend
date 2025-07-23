@@ -31,6 +31,11 @@ const Typography = {
     fontSize: 12,
     color: Colors.text.tag,
   },
+  error: {
+    fontFamily: 'System',
+    fontSize: 14,
+    color: Colors.text.error,
+  }
 };
 
 export default Typography;

@@ -123,8 +123,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     error: {
-        ...GlobalStyles.text,
-        color: Colors.error,
+        ...Typography.error,
         marginBottom: 10,
     },
     button: {
