@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
 import RegisterForm from './RegisterForm';
 
