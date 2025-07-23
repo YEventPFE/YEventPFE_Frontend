@@ -3,7 +3,6 @@ import React, { useState, } from "react";
 import { Platform, View, Button, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DatePickerWeb from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
   date: Date;
