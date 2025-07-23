@@ -3,10 +3,9 @@ export type EventDTO = {
     name: string;
     description: string;
     ownerId: string;
-    date: string;
+    startDate: string;
+    endDate: string;
     location: string;
-    startTime: string;
-    endTime: string;
     isMature: boolean;
     tags: string[];
 }

@@ -42,3 +42,22 @@ export const getForthcomingEventsByOwner = async (token: string): Promise<EventD
   const events: EventDTO[] = await response.json();
   return events;
 };
+
+export const getRandomEvents = async (count: number): Promise<EventDTO[]> => {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  if (!apiUrl) {
+    throw new Error('API URL is not defined');
+  }
+
+  const response = await fetch(`${apiUrl}/events/GetRandomEvents?count=${count}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch random events');
+  }
+
+  const events: EventDTO[] = await response.json();
+  return events;
+};

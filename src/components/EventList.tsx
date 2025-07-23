@@ -19,9 +19,8 @@ export default function EventList({ events, onEventPress, onTagPress }: EventLis
                        <Text style={style.eventName}>{event.name}</Text>
                    </Pressable>
                         <Text style={style.eventDescription}>{event.description}</Text>
-                        <Text style={style.eventDate}>Date: {event.date}</Text>
+                        <Text style={style.eventDate}>{event.startDate} - {event.endDate}</Text>
                         <Text style={style.eventLocation}>Location: {event.location}</Text>
-                        <Text style={style.eventTime}>Time: {event.startTime} - {event.endTime}</Text>
                         <Text style={style.eventOwner}>{event.ownerId}</Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                             {event.tags.map(tag => (
@@ -43,7 +42,6 @@ const style = StyleSheet.create({
         padding: 10,
         backgroundColor: Colors.background,
         borderRadius: 10,
-        maxWidth: '30%',
     },
     eventItem: {
         marginBottom: 15,
@@ -67,11 +65,6 @@ const style = StyleSheet.create({
         color: Colors.primary,
     },
     eventLocation: {
-        ...Typography.fontFamily,
-        ...Typography.fontSize,
-        color: Colors.primary,
-    },
-    eventTime: {
         ...Typography.fontFamily,
         ...Typography.fontSize,
         color: Colors.primary,
