@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     subtitle: {
         ...GlobalStyles.text,
         fontSize: Typography.fontSize.medium,
-        color: Colors.textSecondary,
+        color: Colors.text.secondary,
         textAlign: 'center',
     },
 });

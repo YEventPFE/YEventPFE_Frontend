@@ -61,9 +61,9 @@ describe('EventList', () => {
 
         expect(getByText("Test Event")).toBeTruthy();
         expect(getByText("This is a test event.")).toBeTruthy();
-        expect(getByText("Date: 2025-01-01")).toBeTruthy();
-        expect(getByText("Location: Test Location")).toBeTruthy();
-        expect(getByText("Time: 10:00 - 12:00")).toBeTruthy();
+        expect(getByText("2025-01-01 - 2025-01-02")).toBeTruthy();
+        expect(getByText(`${t('location')} : Test Location`)).toBeTruthy();
+        expect(getByText(`${t('owner')} : owner123`)).toBeTruthy();
     });
 
     it('calls onEventPress when an event is pressed', () => {

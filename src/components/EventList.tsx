@@ -2,6 +2,7 @@ import { EventDTO } from "@/dto/eventDTO";
 import { View, Text,StyleSheet, Pressable, ScrollView } from "react-native";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
+import { useTranslation } from "node_modules/react-i18next";
 
 type EventListProps = {
     events: EventDTO[],
@@ -11,6 +12,7 @@ type EventListProps = {
 
 
 export default function EventList({ events, onEventPress, onTagPress }: EventListProps) {
+    const { t } = useTranslation();
     return (
         <ScrollView style={style.container}>
             {events.map(event => (
@@ -20,8 +22,8 @@ export default function EventList({ events, onEventPress, onTagPress }: EventLis
                    </Pressable>
                         <Text style={style.eventDescription}>{event.description}</Text>
                         <Text style={style.eventDate}>{event.startDate} - {event.endDate}</Text>
-                        <Text style={style.eventLocation}>Location: {event.location}</Text>
-                        <Text style={style.eventOwner}>{event.ownerId}</Text>
+                        <Text style={style.eventLocation}>{t('location') + " : "}{event.location}</Text>
+                        <Text style={style.eventOwner}>{t('owner') + " : "}{event.ownerId}</Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                             {event.tags.map(tag => (
                                 <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
