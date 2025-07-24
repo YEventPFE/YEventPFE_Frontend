@@ -1,18 +1,18 @@
 import { useTranslation } from "react-i18next";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import EventDetails from "@/components/EventDetails";
 import { router, useLocalSearchParams } from "expo-router";
-import { useEventContext } from "@/context/EventContext";
 import { getEventById } from "@/services/eventService";
 import { EventDTO } from "@/dto/eventDTO";
 import { useEffect, useState } from "react";
-import { UserDTO } from "@/dto/userListDTO";
+import { UserDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect, getUser } from "@/viewModels/authViewModel";
+import { onUserPress, useContextEvent } from "@/viewModels/navigationViewModel";
 
 export default function EventDetail() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { selectedEvent } = useEventContext();
+  const selectedEvent = useContextEvent();
   const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
   const [eventDetail, setEventDetail] = useState<EventDTO | null>(null);
   const [loading, setLoading] = useState(false);
@@ -66,9 +66,9 @@ export default function EventDetail() {
   }
 
   return (
-    <View style={styles.container}>
-      <EventDetails event={eventDetail} />
-    </View>
+    <ScrollView style={styles.container}>
+      <EventDetails event={eventDetail} onUserPress={onUserPress} />
+    </ScrollView>
   );
 }
 

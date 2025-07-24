@@ -2,7 +2,7 @@ import { login as serviceLogin, register as serviceRegister } from '../services/
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { UserDTO } from '@/dto/userListDTO';
+import { UserDTO } from '@/dto/userDTO';
 import { LoginResponse } from '@/dto/authDTO';
 import { Router } from 'expo-router';
 

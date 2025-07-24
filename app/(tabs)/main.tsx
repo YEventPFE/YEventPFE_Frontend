@@ -10,7 +10,8 @@ import EventList from "@/components/EventList";
 import { useRouter } from "expo-router";
 import { useEventContext } from "@/context/EventContext";
 import { fetchUserAndRedirect, logOut } from "@/viewModels/authViewModel";
-import { UserDTO } from "@/dto/userListDTO";
+import { UserDTO } from "@/dto/userDTO";
+import { UseOnEventPress } from "@/viewModels/navigationViewModel";
 
 
 export default function Main() {
@@ -18,9 +19,8 @@ export default function Main() {
   const [events, setEvents] = useState<EventDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
+  const onEventPress = UseOnEventPress();
 
-
-  const { setSelectedEvent } = useEventContext();
   const router = useRouter();
 
   const [fontsLoaded] = useFonts({
@@ -63,14 +63,7 @@ export default function Main() {
             <View>
               <EventList
                 events={events}
-                onEventPress={(e) => {
-                  console.log("Event pressed:", e);
-                  setSelectedEvent(e);
-                  router.push({
-                    pathname: '/(tabs)/eventDetail',
-                    params: { id: e.id }
-                  });
-                }}
+                onEventPress={onEventPress}
                 onTagPress={(tag) => console.log("Tag pressed:", tag)}
               />
             </View>

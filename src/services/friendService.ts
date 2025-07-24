@@ -1,4 +1,4 @@
-import { UserListDTO, UserDTO } from "@/dto/userListDTO";
+import { UserListDTO, UserDTO } from "@/dto/userDTO";
 
 export const getUserFriendList = async (token: string): Promise<UserListDTO> => {
     if (!token) {

@@ -13,7 +13,7 @@ type EventDetailsProps = {
 export default function EventDetails({ event, onTagPress, onUserPress }: EventDetailsProps) {
     const { t } = useTranslation();
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <Text style={styles.eventName}>{event.name}</Text>
             <Text style={styles.eventDescription}>{event.description}</Text>
             <Text style={styles.eventDate}>{event.startDate} - {event.endDate}</Text>
@@ -28,7 +28,7 @@ export default function EventDetails({ event, onTagPress, onUserPress }: EventDe
                     </Pressable>
                 ))}
             </View>
-        </ScrollView>
+        </View>
     );
 }
 

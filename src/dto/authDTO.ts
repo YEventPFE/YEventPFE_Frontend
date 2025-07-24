@@ -1,4 +1,4 @@
-import { UserDTO } from "./userListDTO";
+import { UserDTO } from "./userDTO";
 
 export type LoginDTO = {
   name: string;

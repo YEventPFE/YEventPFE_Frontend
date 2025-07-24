@@ -1,4 +1,4 @@
-import { UserDTO } from "@/dto/userListDTO";
+import { UserDTO } from "@/dto/userDTO";
 
 export type EventDTO = {
     id: string;
