@@ -1,18 +1,22 @@
 import { useTranslation } from "react-i18next";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import EventDetails from "@/components/EventDetails";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import UserDetails from "@/components/UserDetails";
-import { UserProfileDTO } from "@/dto/userDTO";
+import { UserDTO, UserProfileDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
 import { fetchUserProfileAndRedirect } from "@/viewModels/profileViewModel";
+import { useOnAddFriendPress } from "@/viewModels/friendViewModel";
+import NotLoggedIn from "@/components/NotLoggedIn";
 
 export default function UserProfile() {
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const [connectedUser, setConnectedUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<UserProfileDTO | undefined>(undefined);
+  const [userProfile, setUserProfile] = useState<UserProfileDTO | undefined>(undefined);
+
 
   useEffect(() => {
     if (!id) {
@@ -21,7 +25,8 @@ export default function UserProfile() {
     }
 
     try {
-      fetchUserProfileAndRedirect(router, id, setUser);
+      fetchUserProfileAndRedirect(router, id, setUserProfile);
+      fetchUserAndRedirect(router, setConnectedUser);
     } catch (error) {
       console.error("Error fetching user profile:", error);
     } finally {
@@ -37,17 +42,27 @@ export default function UserProfile() {
     );
   }
 
-  if (!user) {
+  if (!connectedUser) {
+    return (
+      <>
+        <NotLoggedIn />
+      </>
+    );
+  }
+
+  const onAddFriendPress = useOnAddFriendPress(connectedUser.token);
+
+  if (!userProfile) {
     return (
       <View style={styles.container}>
         <Text>{t("user_not_found")}</Text>
       </View>
     );
   }
-  console.log("User profile fetched:", user);
+  console.log("User profile fetched:", userProfile);
   return (
     <ScrollView style={styles.container}>
-      <UserDetails user={user} />
+      <UserDetails user={userProfile} onAddFriendPress={onAddFriendPress} />
     </ScrollView>
   );
 }

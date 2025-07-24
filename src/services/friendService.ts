@@ -23,20 +23,18 @@ export const getUserFriendList = async (token: string): Promise<UserListDTO> => 
     return userList;
 };
 
-export const addFriend = async (token: string, userId: string): Promise<void> => {
-    if (!token || !userId) {
-        throw new Error('Token and userId are required');
+export const addFriend = async (token: string, friendId: string): Promise<void> => {
+    if (!token || !friendId) {
+        throw new Error('Token and friendId are required');
     }
 
     const apiUrl = process.env.EXPO_PUBLIC_API_URL;
     if (!apiUrl) {
         throw new Error('API URL is not defined');
     }
-
-    const response = await fetch(`${apiUrl}/Friend/Add`, {
+    const response = await fetch(`${apiUrl}/Friend/Add?friendId=${friendId}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ userId })
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
     });
 
     if (!response.ok) {
