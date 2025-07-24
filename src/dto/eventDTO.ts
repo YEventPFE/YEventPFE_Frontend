@@ -11,3 +11,15 @@ export type EventDTO = {
     isMature: boolean;
     tags: string[];
 }
+
+
+export type CreatedEventDTO = {
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    location: string;
+    description: string;
+    isPublic?: boolean;
+    isMature?: boolean;
+    tags?: string[];
+}
