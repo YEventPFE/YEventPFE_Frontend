@@ -35,7 +35,12 @@ const Typography = {
     fontFamily: 'System',
     fontSize: 14,
     color: Colors.text.error,
-  }
+  },
+  pressable: {
+    fontFamily: 'System',
+    fontSize: 16,
+    color: Colors.text.pressable,
+  },
 };
 
 export default Typography;

@@ -26,6 +26,7 @@ const Colors = {
         success: BaseColors.delftBlue,
         warning: BaseColors.gunMetal,
         tag: BaseColors.spaceCadet,
+        pressable: BaseColors.periwinkle,
     },
 };
 
