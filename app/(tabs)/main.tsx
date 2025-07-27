@@ -73,6 +73,12 @@ export default function Main() {
             <Text>{t('no_events_found')}</Text>
           )
         }
+        <Pressable onPress={() => {
+          console.log("Navigating to create event");
+          router.push('/(tabs)/createEvent');
+        }}>
+          <Text>{t('create_event')}</Text>
+        </Pressable>
          <Pressable onPress={() => {
           console.log("User logout pressed");
           logOut();

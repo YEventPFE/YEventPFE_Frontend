@@ -1,17 +1,20 @@
-// DatePicker.tsx
 import React, { useState, } from "react";
 import { Platform, View, Button, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import DatePickerWeb from "react-datepicker";
+if (Platform.OS === "web") {
+  require("react-datepicker/dist/react-datepicker.css");
+}
 
 interface Props {
   date: Date;
   onChange: (date: Date) => void;
   placeholderText?: string;
   showYearDropdown?: boolean;
+  showTimeSelect?: boolean;
 }
 
-export default function CrossPlatformDatePicker({ date, onChange, placeholderText, showYearDropdown }: Props) {
+export default function CrossPlatformDatePicker({ date, onChange, placeholderText, showYearDropdown, showTimeSelect }: Props) {
   const [showPicker, setShowPicker] = useState(false);
 
   if (Platform.OS === "web") {
@@ -20,6 +23,9 @@ export default function CrossPlatformDatePicker({ date, onChange, placeholderTex
         <DatePickerWeb
             selected={date}
             placeholderText={placeholderText}
+            showTimeSelect={showTimeSelect}
+            timeIntervals={30}
+            dateFormat={showTimeSelect ? "yyyy-MM-dd HH:mm" : "yyyy-MM-dd"}
             showYearDropdown={showYearDropdown}
             onChange={(date: Date | null) => {
                 if (date) {
@@ -27,7 +33,6 @@ export default function CrossPlatformDatePicker({ date, onChange, placeholderTex
                 }
                 setShowPicker(false);
             }}
-            dateFormat="yyyy-MM-dd"
         />
       </div>
     );

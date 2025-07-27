@@ -5,8 +5,9 @@ import {
   Button,
   Text,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
+import {Checkbox} from "expo-checkbox";
 import {useTranslation} from "react-i18next";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
@@ -38,6 +39,9 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [endDate, setEndDate] = useState<Date | null>(new Date());
     const [location, setLocation] = useState("");
+    const [tags, setTags] = useState<string[]>([]);
+    const [isPublic, setIsPublic] = useState(true);
+    const [isMature, setIsMature] = useState(false);
     
     const [loadingCreation, setLoadingCreation] = useState(false);
     
@@ -57,7 +61,7 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
         setError(null);
         setLoadingCreation(true);
         try {
-            await onSubmit({name: title, description, startDate: startDate!, endDate: endDate!, location });
+            await onSubmit({name: title, description, startDate: startDate!, endDate: endDate!, location, tags, isPublic, isMature});
         } catch (err: any) {
             setError(err.message || "Event creation failed");
         } finally {
@@ -82,11 +86,13 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
           date={startDate || new Date()}
           onChange={setStartDate}
           placeholderText={t("event_date")}
+          showTimeSelect={true}
           showYearDropdown={false}/>
         <CrossPlatformDatePicker
           date={endDate || new Date()}
           onChange={setEndDate}
           placeholderText={t("event_end_date")}
+          showTimeSelect={true}
           showYearDropdown={false}/>
         <TextInput
           placeholder={t("event_location")}
@@ -94,6 +100,28 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
           onChangeText={setLocation}
           style={styles.input}/>
         {error && <Text style={styles.error}>{error}</Text>}
+        <TextInput
+          placeholder={t("event_tags")}
+          value={tags.join(", ")}
+          onChangeText={(text) => setTags(text.split(", ").map(tag => tag.trim()))}
+          style={styles.input}
+        />
+        <View>
+          <View style={{flexDirection: "row", alignItems: "center"}}>
+            <Text style={{marginRight: 8}}>{t("event_public")}</Text>
+            <Checkbox
+              value={isPublic}
+              onValueChange={setIsPublic}
+            />
+          </View>
+          <View style={{flexDirection: "row", alignItems: "center"}}>
+            <Text style={{marginRight: 8}}>{t("event_mature")}</Text>
+            <Checkbox
+              value={isMature}
+              onValueChange={setIsMature}
+            />
+          </View>
+        </View>
         <Button
           title={buttonLabel}
           onPress={handleCreateEvent}

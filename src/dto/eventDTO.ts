@@ -21,5 +21,5 @@ export type CreatedEventDTO = {
     description: string;
     isPublic?: boolean;
     isMature?: boolean;
-    tags?: string[];
+    tags: string[];
 }
