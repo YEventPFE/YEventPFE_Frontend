@@ -3,6 +3,7 @@ import { View, Text,StyleSheet, Pressable, ScrollView } from "react-native";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import { useTranslation } from "react-i18next";
+import CommentList from "./CommentList";
 
 type EventDetailsProps = {
     event: EventDTO,
@@ -28,6 +29,7 @@ export default function EventDetails({ event, onTagPress, onUserPress }: EventDe
                     </Pressable>
                 ))}
             </View>
+            <CommentList comments={event.comments} onUserPress={onUserPress} />
         </View>
     );
 }

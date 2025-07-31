@@ -1,4 +1,5 @@
 import { UserDTO } from "@/dto/userDTO";
+import { CommentDTO } from "./commentDTO";
 
 export type EventDTO = {
     id: string;
@@ -9,6 +10,7 @@ export type EventDTO = {
     endDate: string;
     location: string;
     isMature: boolean;
+    comments: CommentDTO[];
     tags: string[];
 }
 

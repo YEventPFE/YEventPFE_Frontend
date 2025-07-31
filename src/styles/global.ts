@@ -25,6 +25,7 @@ const GlobalStyles = StyleSheet.create({
     color: Colors.text.primary,
   },
   button: {
+    ...Typography.pressable,
     backgroundColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 16,

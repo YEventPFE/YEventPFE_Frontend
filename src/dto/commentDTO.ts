@@ -5,5 +5,5 @@ export type CommentDTO = {
     user: UserDTO;
     repliedTo?: CommentDTO;
     content: string;
-    createdAt: Date;
+    date: Date;
 }
