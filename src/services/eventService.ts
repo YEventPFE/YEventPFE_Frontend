@@ -99,7 +99,7 @@ export const createEvent = async (token: string, event: CreatedEventDTO): Promis
   if (!response.ok) {
     throw new Error('Failed to create event');
   }
-
-  const createdEvent: EventDTO = await response.json();
-  return createdEvent;
+  const rawEvent = await response.json();
+  const deserializedEvent: EventDTO = normalizeDotNetJson<EventDTO>(rawEvent);
+  return deserializedEvent;
 }

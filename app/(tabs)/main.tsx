@@ -1,17 +1,16 @@
-import { useTranslation } from "react-i18next";
-import { View, Text, StyleSheet, Pressable } from "react-native";
 import AppTitle from "@/components/AppTitle";
-import { useFonts } from 'expo-font';
-import WaitingScreen from "@/components/WaitingScreen";
-import { getRandomEvents } from "@/services/eventService";
-import { useEffect, useState } from "react";
-import { EventDTO } from "@/dto/eventDTO";
 import EventList from "@/components/EventList";
-import { useRouter } from "expo-router";
-import { useEventContext } from "@/context/EventContext";
-import { fetchUserAndRedirect, logOut } from "@/viewModels/authViewModel";
+import WaitingScreen from "@/components/WaitingScreen";
+import { EventDTO } from "@/dto/eventDTO";
 import { UserDTO } from "@/dto/userDTO";
-import { UseOnEventPress } from "@/viewModels/navigationViewModel";
+import { getRandomEvents } from "@/services/eventService";
+import { fetchUserAndRedirect, logOut } from "@/viewModels/authViewModel";
+import { useNavigateToEvent } from "@/viewModels/navigationViewModel";
+import { useFonts } from 'expo-font';
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 
 export default function Main() {
@@ -19,7 +18,7 @@ export default function Main() {
   const [events, setEvents] = useState<EventDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
-  const onEventPress = UseOnEventPress();
+  const onEventPress = useNavigateToEvent();
 
   const router = useRouter();
 
@@ -48,7 +47,7 @@ export default function Main() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <AppTitle showSubtitle={true} />
       <Text style={styles.welcomeText}>{t("welcome_to_your_yevent") + ", " + (user?.user.name || "")}</Text>
        {
@@ -86,7 +85,7 @@ export default function Main() {
         }}>
           <Text>{t('logout')}</Text>
         </Pressable>
-    </View>
+    </ScrollView>
   );
 
   async function fetchRandomEvents() {
@@ -106,10 +105,7 @@ export default function Main() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
+    flex: 1
   },
   welcomeText: {
     fontSize: 18,

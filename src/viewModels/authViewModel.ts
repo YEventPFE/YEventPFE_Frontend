@@ -1,10 +1,10 @@
-import { login as serviceLogin, register as serviceRegister } from '../services/authService';
-import * as SecureStore from 'expo-secure-store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
-import { UserDTO } from '@/dto/userDTO';
 import { LoginResponse } from '@/dto/authDTO';
+import { UserDTO } from '@/dto/userDTO';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Router } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
+import { login as serviceLogin, register as serviceRegister } from '../services/authService';
 
 interface RegisterResponse {
   success: boolean;
@@ -17,7 +17,7 @@ export const login = async (username: string, password: string) : Promise<LoginR
 
     console.log('Login response (vm):', response);
     if (!response) {
-      throw new Error('Login failed');
+      throw new Error('Login failed', { cause: response });
     }
     
     saveUser(response.user, response.token);

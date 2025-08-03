@@ -9,16 +9,25 @@ export const onUserPress = (userId: string) => {
     });
 }
 
-export const UseOnEventPress = () => {
+export const useNavigateToEvent = () => {
     const { setSelectedEvent } = useEventContext();
-    return (event: EventDTO) => {
+
+    return (event: EventDTO, replace: boolean = false) => {
         setSelectedEvent(event);
-        router.push({
-            pathname: '/(tabs)/eventDetail',
-            params: { id: event.id }
-        });
-    }
-}
+
+        if (replace) {
+            router.replace({
+                pathname: '/(tabs)/eventDetail',
+                params: { id: event.id }
+            });
+        } else {
+            router.push({
+                pathname: '/(tabs)/eventDetail',
+                params: { id: event.id }
+            });
+        }
+    };
+};
 
 export const useContextEvent = (): EventDTO | null => {
     const { selectedEvent } = useEventContext();
