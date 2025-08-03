@@ -4,6 +4,7 @@ import WaitingScreen from "@/components/WaitingScreen";
 import { EventDTO } from "@/dto/eventDTO";
 import { UserDTO } from "@/dto/userDTO";
 import { getRandomEvents } from "@/services/eventService";
+import GlobalStyles from "@/styles/global";
 import { fetchUserAndRedirect, logOut } from "@/viewModels/authViewModel";
 import { useNavigateToEvent } from "@/viewModels/navigationViewModel";
 import { useFonts } from 'expo-font';
@@ -47,44 +48,45 @@ export default function Main() {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <AppTitle showSubtitle={true} />
-      <Text style={styles.welcomeText}>{t("welcome_to_your_yevent") + ", " + (user?.user.name || "")}</Text>
-       {
-          loading && (
-            <View>
-              <Text>Loading events...</Text>
-            </View>
-          )
-        }
-        {
-          events.length > 0 && (
-            <View>
-              <EventList
-                events={events}
-                onEventPress={onEventPress}
-                onTagPress={(tag) => console.log("Tag pressed:", tag)}
-              />
-            </View>
-          )}
-        {
-          events.length === 0 && !loading && (
-            <Text>{t('no_events_found')}</Text>
-          )
-        }
-        <Pressable onPress={() => {
-          console.log("Navigating to create event");
-          router.push('/(tabs)/createEvent');
-        }}>
-          <Text>{t('create_event')}</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <AppTitle showSubtitle={true} />
+        <Text style={styles.welcomeText}>
+          {t("welcome_to_your_yevent") + ", " + (user?.user.name || "")}
+        </Text>
+        {loading && (
+          <View>
+            <Text>Loading events...</Text>
+          </View>
+        )}
+        {events.length > 0 && (
+          <View>
+            <EventList
+              events={events}
+              onEventPress={onEventPress}
+              onTagPress={(tag) => console.log("Tag pressed:", tag)}
+            />
+          </View>
+        )}
+        {events.length === 0 && !loading && <Text>{t("no_events_found")}</Text>}
+        <Pressable
+          onPress={() => {
+            console.log("Navigating to create event");
+            router.push("/(tabs)/createEvent");
+          }}
+        >
+          <Text>{t("create_event")}</Text>
         </Pressable>
-         <Pressable onPress={() => {
-          console.log("User logout pressed");
-          logOut();
-          router.replace('/(auth)/login');
-        }}>
-          <Text>{t('logout')}</Text>
+        <Pressable
+          onPress={() => {
+            console.log("User logout pressed");
+            logOut();
+            router.replace("/(auth)/login");
+          }}
+        >
+          <Text>{t("logout")}</Text>
         </Pressable>
+      </View>
     </ScrollView>
   );
 
@@ -105,7 +107,10 @@ export default function Main() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    ...GlobalStyles.container,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20
   },
   welcomeText: {
     fontSize: 18,
