@@ -61,7 +61,8 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
         setError(null);
         setLoadingCreation(true);
         try {
-            await onSubmit({name: title, description, startDate: startDate!, endDate: endDate!, location, tags, isPublic, isMature});
+            const filteredTags = tags.filter(tag => tag.trim() !== "");
+            await onSubmit({name: title, description, startDate: startDate!, endDate: endDate!, location, tags: filteredTags, isPublic, isMature});
         } catch (err: any) {
             setError(err.message || "Event creation failed");
         } finally {
@@ -102,8 +103,8 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
         {error && <Text style={styles.error}>{error}</Text>}
         <TextInput
           placeholder={t("event_tags")}
-          value={tags.join(", ")}
-          onChangeText={(text) => setTags(text.split(", ").map(tag => tag.trim()))}
+          value={tags.join(",")}
+          onChangeText={(text) => setTags(text.split(",").map(tag => tag.trim()))}
           style={styles.input}
         />
         <View>
