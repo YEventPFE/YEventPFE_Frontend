@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { isVersionCorrect } from "@/utils/serverVersion";
 import WaitingScreen from "@/components/WaitingScreen";
 import { Redirect } from "expo-router";
+import { UserDTO } from "@/dto/userDTO";
+import { getUser } from "@/viewModels/authViewModel";
 
 export default function Index() {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(true);
+  const [loadingServerVersion, setLoadingServerVersion] = useState(true);
   const [versionValid, setVersionValid] = useState<Boolean | null>(null);
+  const [loadingGetUser, setLoadingGetUser] = useState(true);
+  const [user, setUser] = useState<UserDTO | null>(null);
 
   useEffect(() => {
     console.log("Checking server version...");
@@ -16,19 +20,36 @@ export default function Index() {
       const isValid = await isVersionCorrect();
       console.log("Version check result:", isValid);
       setVersionValid(isValid);
-      setLoading(false);
+      setLoadingServerVersion(false);
     };
     checkVersion();
   }, []);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try{
+        console.log("Checking if user is already logged in...");
+        const userData = await getUser();
+        if (userData) {
+          console.log("User found:", userData.user);
+          setUser(userData.user);
+        } else {
+          console.log("No user found, preparing to redirect to login.");
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+        setLoadingGetUser(false);
+      }
+    };
+    fetchUser();
+  }, []);
 
-  const isAuthenticated = false;
-
-  if (loading) return <WaitingScreen />;
+  if (loadingServerVersion || loadingGetUser) return <WaitingScreen />;
 
   if (!versionValid) return <Redirect href="/unsupported" />;
-  if (!isAuthenticated) return <Redirect href="/(auth)/login" />;
+  if (!user) return <Redirect href="/(auth)/login" />;
 
-  return <Redirect href="/tabs" />;
+  return <Redirect href="/main" />;
 
 }
