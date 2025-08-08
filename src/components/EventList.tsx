@@ -1,47 +1,36 @@
 import { EventDTO } from "@/dto/eventDTO";
-import { View, Text,StyleSheet, Pressable, ScrollView } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View, Text } from "react-native";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
-import { useTranslation } from "node_modules/react-i18next";
+import { useTranslation } from "react-i18next";
+import EventListItem from "./EventListItem";
 
-type EventListProps = {
+export type EventListProps = {
     events: EventDTO[],
     onEventPress?: (event: EventDTO) => void,
     onTagPress?: (tag: string) => void,
     onUserPress?: (userId: string) => void
     };
 
-
 export default function EventList({ events, onEventPress, onTagPress, onUserPress }: EventListProps) {
     const { t } = useTranslation();
     return (
         <ScrollView style={style.container}>
-            {events.map(event => (
-                <View key={event.id} style={style.eventItem}>
-                   <Pressable onPress={() => onEventPress?.(event)}>
-                       <Text style={style.eventName}>{event.name}</Text>
-                   </Pressable>
-                        <Text style={style.eventDescription}>{event.description}</Text>
-                        <Text style={style.eventDate}>{event.startDate} - {event.endDate}</Text>
-                        <Text style={style.eventLocation}>{t('location') + " : "}{event.location}</Text>
-                        <Pressable onPress={() => onUserPress?.(event.owner.id)}>
-                            <Text style={style.eventOwner}>{t('owner') + " : "}{event.owner.name}</Text>
-                        </Pressable>
-                        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                            {event.tags.map(tag => (
-                                <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
-                                    <Text style={style.tag}>#{tag}</Text>
-                                </Pressable>
-                            ))}
-                        </View>
-                    </View>
-                ))}
+            {events.map(eventItem => (
+                <EventListItem
+                    key={eventItem.id}
+                    event={eventItem}
+                    onEventPress={onEventPress}
+                    onTagPress={onTagPress}
+                    onUserPress={onUserPress}
+                />
+            ))}
         </ScrollView>
     );
 }
 
 
-const style = StyleSheet.create({
+export const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
@@ -51,7 +40,7 @@ const style = StyleSheet.create({
     eventItem: {
         marginBottom: 15,
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 10,
         backgroundColor: Colors.container.accent,
     },
     eventName: {

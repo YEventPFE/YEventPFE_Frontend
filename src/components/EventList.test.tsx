@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
-import EventList from './EventList';
 import { EventDTO } from '@/dto/eventDTO';
+import EventList from './EventList';
 
 
 jest.mock('react-i18next', () => ({
@@ -34,6 +34,7 @@ describe('EventList', () => {
             location: "Test Location",
             owner: { id: "123", name: "Owner Name" },
             tags: ["test", "event"],
+            comments: [],
             isMature: true
         },
         {
@@ -45,6 +46,7 @@ describe('EventList', () => {
             location: "Another Location",
             owner: { id: "456", name: "Owner Name 2" },
             tags: ["another", "event"],
+            comments: [],
             isMature: false,
         }
     ];
