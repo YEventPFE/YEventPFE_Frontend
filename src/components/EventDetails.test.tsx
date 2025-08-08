@@ -32,6 +32,7 @@ describe('EventDetails', () => {
         location: "Test Location",
         owner: { id: "123", name: "Owner Name" },
         tags: ["test", "event"],
+        comments: [],
         isMature: true
     };
     beforeEach(() => {
