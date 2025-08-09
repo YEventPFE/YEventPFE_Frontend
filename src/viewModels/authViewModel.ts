@@ -15,7 +15,7 @@ export const login = async (username: string, password: string) : Promise<LoginR
   try {
     const response = await serviceLogin(username, password);
 
-    console.log('Login response (vm):', response);
+    console.debug('Login response (vm):', response);
     if (!response) {
       throw new Error('Login failed', { cause: response });
     }
@@ -98,7 +98,7 @@ export const fetchUserAndRedirect = async (router: Router, setUser: (user: { tok
       return;
     }
     setUser(fetchedUser);
-    console.log("User fetched successfully:", fetchedUser);
+    console.debug("User fetched successfully:", fetchedUser);
   } catch (error) {
     console.error("Error fetching user:", error);
     router.replace("/(auth)/login");

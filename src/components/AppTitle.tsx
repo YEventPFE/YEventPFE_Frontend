@@ -14,7 +14,6 @@ const AppTitle : React.FC<AppTitleProps> = ({
     showSubtitle
 }) => {
     const { t } = useTranslation();
-    console.log('AppTitle rendered with showSubtitle:', showSubtitle);
     return (
     <>
         <Text style={ styles.title}>

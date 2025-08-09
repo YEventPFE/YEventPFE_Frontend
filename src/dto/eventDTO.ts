@@ -2,7 +2,7 @@ import { UserDTO } from "@/dto/userDTO";
 import { CommentDTO } from "./commentDTO";
 
 export type EventDTO = {
-    id: string;
+    id: number;
     name: string;
     description: string;
     owner : UserDTO;

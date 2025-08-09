@@ -59,7 +59,7 @@ export default function UserProfile() {
       </View>
     );
   }
-  console.log("User profile fetched:", userProfile);
+  console.debug("User profile fetched:", userProfile);
   return (
     <ScrollView style={styles.container}>
       <UserDetails user={userProfile} onAddFriendPress={onAddFriendPress} />

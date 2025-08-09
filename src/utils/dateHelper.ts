@@ -12,7 +12,7 @@ export const getAgeByBirthdate = (birthDate: Date): number => {
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
         age--;
     }
-    console.log('Final age:', age);
+    console.debug('Final age:', age);
     
     return age;
 }

@@ -12,7 +12,7 @@ export default function Register() {
         onSubmit={async (username, password, email, birthdate, phoneNumber) => {
           try {
             const response = await register(username, password, email, birthdate, phoneNumber);
-            console.log("Register successful:", response);
+            console.debug("Register successful:", response);
             router.push("/(auth)/login"); // Redirect to login after successful registration
           } catch (error) {
             console.error("Register failed:", error);

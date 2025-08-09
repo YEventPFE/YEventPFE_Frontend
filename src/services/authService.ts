@@ -24,7 +24,7 @@ export const login = async (name: string, password: string): Promise<LoginRespon
 
   //parse 'userDto' from response
   const jsonResponse = await response.json();
-  console.log('Parsed response:', jsonResponse);
+  console.debug('Parsed response:', jsonResponse);
   const userDto = jsonResponse.userDto;
   if (!userDto || !userDto.name) {
     throw new Error('Invalid response from server');

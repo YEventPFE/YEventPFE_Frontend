@@ -9,7 +9,7 @@ import { UserDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect, getUser } from "@/viewModels/authViewModel";
 import { onUserPress, useContextEvent } from "@/viewModels/navigationViewModel";
 import { CommentDTO } from "@/dto/commentDTO";
-import { replyToComment } from "@/viewModels/eventViewModel";
+import { addComment, replyToComment } from "@/viewModels/eventViewModel";
 
 export default function EventDetail() {
   const { t } = useTranslation();
@@ -27,18 +27,18 @@ export default function EventDetail() {
       return;
     }
     const paramId = parseInt(id as string, 10);
-    const selectedEventId = parseInt(selectedEvent?.id as string, 10);
+    const selectedEventId = selectedEvent?.id
 
     if (selectedEvent && selectedEventId === paramId) {
-      console.log("Using event from context:", selectedEvent);
+      console.debug("Using event from context:", selectedEvent);
       setEventDetail(selectedEvent);
     } else {
-      console.log(`Fetching event with ID: ${id}`);
+      console.debug(`Fetching event with ID: ${id}`);
       setLoading(true);
       getEventById(id)
         .then((event) => {
           if (event) {
-            console.log("Event fetched successfully:", event);
+            console.debug("Event fetched successfully:", event);
             setEventDetail(event);
           } else {
             console.error(`No event found with ID: ${id}`);
@@ -69,10 +69,20 @@ export default function EventDetail() {
 
   return (
     <ScrollView style={styles.container}>
-      <EventDetails event={eventDetail} onUserPress={onUserPress} onReplyToComment={handleReplyToComment} />
+      <EventDetails event={eventDetail} onUserPress={onUserPress} onComment={handleAddComment} onReplyToComment={handleReplyToComment} />
     </ScrollView>
   );
-  
+
+  async function handleAddComment(event: EventDTO, commentText: string): Promise<CommentDTO> {
+    try {
+      const newComment = await addComment({ eventId: event.id, content: commentText });
+      return newComment;
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      throw error;
+    }
+  }
+
   async function handleReplyToComment(comment: CommentDTO, replyText: string): Promise<CommentDTO> {
     try {
       const newComment = await replyToComment({ commentId: comment.id, content: replyText });

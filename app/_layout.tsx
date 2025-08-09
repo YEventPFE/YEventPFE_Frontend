@@ -4,18 +4,23 @@ import { Stack } from "expo-router";
 import i18n from '@/internationalization/i18n';
 import { EventProvider } from '@/context/EventContext';
 import React, { Children } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native';
+import GlobalStyles from '@/styles/global';
 
 export default function RootLayout() {
   return (
     <AppProviders>
-      <Stack
-        screenOptions={{
+      <SafeAreaView style={styles.safeArea}>
+        <Stack
+          screenOptions={{
           headerShown: false,
           header: () => null,
-          animation: "fade",
+          animation: "default",
           animationDuration: 300,
         }}
-      />
+        />
+      </SafeAreaView>
     </AppProviders>
   );
 }
@@ -29,3 +34,10 @@ const AppProviders = ({children}: {children: React.ReactNode}) => {
     </I18nextProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: GlobalStyles.container.backgroundColor,
+  },
+})

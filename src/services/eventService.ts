@@ -52,7 +52,7 @@ export const getForthcomingEventsByOwner = async (token: string): Promise<EventD
     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
   });
 
-  console.log("response :", response);
+  console.debug("response :", response);
   if (!response.ok) {
     throw new Error('Failed to fetch events by owner');
   }

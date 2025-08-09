@@ -7,40 +7,58 @@ import CommentList from "./CommentList";
 import { CommentListProps } from "./CommentList";
 import { CommentDTO } from "@/dto/commentDTO";
 import { useState } from "react";
+import CommentInputs from "./CommentInputs";
 
 type EventDetailsProps = {
     event: EventDTO,
     onTagPress?: (tag: string) => void,
     onUserPress?: (userId: string) => void,
+    onComment?: (event: EventDTO, commentText: string) => Promise<CommentDTO>,
     onReplyToComment?: (comment: CommentDTO, replyText: string) => Promise<CommentDTO>
 };
 
 export default function EventDetails({ 
     event: event, 
     onTagPress: onTagPress, 
-    onUserPress: onUserPress, 
+    onUserPress: onUserPress,
+    onComment: onComment,
     onReplyToComment: onReplyToComment 
 }: EventDetailsProps) {
     const { t } = useTranslation();
 
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <View>
             <Text style={styles.eventName}>{event.name}</Text>
             <Text style={styles.eventDescription}>{event.description}</Text>
-            <Text style={styles.eventDate}>{event.startDate} - {event.endDate}</Text>
-            <Text style={styles.eventLocation}>{t('location') + " : "}{event.location}</Text>
+            <Text style={styles.eventDate}>
+            {event.startDate} - {event.endDate}
+            </Text>
+            <Text style={styles.eventLocation}>
+            {t("location") + " : "}
+            {event.location}
+            </Text>
             <Pressable onPress={() => onUserPress?.(event.owner.id)}>
-                <Text style={styles.eventOwner}>{t('owner') + " : "}{event.owner.name}</Text>
+            <Text style={styles.eventOwner}>
+                {t("owner") + " : "}
+                {event.owner.name}
+            </Text>
             </Pressable>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                {event.tags.map(tag => (
-                    <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
-                        <Text style={styles.tag}>#{tag}</Text>
-                    </Pressable>
-                ))}
-            </View>
-            <CommentList comments={event.comments} onUserPress={onUserPress} onReply={onReplyToComment} />
+            {onComment && <CommentInputs event={event} onComment={onComment} />}
         </View>
+        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+          {event.tags.map((tag) => (
+            <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
+              <Text style={styles.tag}>#{tag}</Text>
+            </Pressable>
+          ))}
+        </View>
+        <CommentList
+          comments={event.comments}
+          onUserPress={onUserPress}
+          onReply={onReplyToComment}
+        />
+      </View>
     );
 }
 

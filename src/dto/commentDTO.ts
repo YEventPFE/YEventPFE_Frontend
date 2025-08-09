@@ -8,12 +8,12 @@ export type CommentDTO = {
     date: Date;
 }
 
-export type CreatedCommentDTO = {
+export type ReplyToCommentDTO = {
     commentId: number;
     content: string;
 }
 
-export type ReplyCommentDTO = {
-    commentDto: CommentDTO;
-    message: string;
+export type AddCommentDTO = {
+    eventId: number;
+    content: string;
 }

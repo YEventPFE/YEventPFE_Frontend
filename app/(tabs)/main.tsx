@@ -72,14 +72,14 @@ export default function Main() {
             <EventList
               events={events}
               onEventPress={onEventPress}
-              onTagPress={(tag) => console.log("Tag pressedml:", tag)}
+              onTagPress={(tag) => console.debug("Tag pressedml:", tag)}
             />
           </View>
         )}
         {events.length === 0 && !loading && <Text>{t("no_events_found")}</Text>}
         <Pressable
           onPress={() => {
-            console.log("Navigating to create event");
+            console.debug("Navigating to create event");
             router.push("/(tabs)/createEvent");
           }}
         >
@@ -90,11 +90,11 @@ export default function Main() {
   );
 
   async function fetchRandomEvents() {
-    console.log("Fetching random events...");
+    console.debug("Fetching random events...");
     setLoading(true);
     try {
       const randomEvents = await getRandomEvents(5);
-      console.log("Random events fetched:", randomEvents);
+      console.debug("Random events fetched:", randomEvents);
       setEvents(randomEvents);
     } catch (error) {
       console.error("Error fetching random events:", error);

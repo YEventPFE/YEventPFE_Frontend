@@ -14,11 +14,11 @@ export default function Index() {
   const [user, setUser] = useState<UserDTO | null>(null);
 
   useEffect(() => {
-    console.log("Checking server version...");
+    console.debug("Checking server version...");
     const checkVersion = async () => {
-      console.log("Calling api");
+      console.debug("Calling api");
       const isValid = await isVersionCorrect();
-      console.log("Version check result:", isValid);
+      console.debug("Version check result:", isValid);
       setVersionValid(isValid);
       setLoadingServerVersion(false);
     };
@@ -28,13 +28,13 @@ export default function Index() {
   useEffect(() => {
     const fetchUser = async () => {
       try{
-        console.log("Checking if user is already logged in...");
+        console.debug("Checking if user is already logged in...");
         const userData = await getUser();
         if (userData) {
-          console.log("User found:", userData.user);
+          console.debug("User found:", userData.user);
           setUser(userData.user);
         } else {
-          console.log("No user found, preparing to redirect to login.");
+          console.debug("No user found, preparing to redirect to login.");
         }
       } catch (error) {
         console.error("Error fetching user:", error);

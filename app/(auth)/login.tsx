@@ -20,7 +20,7 @@ export default function Login() {
           onSubmit={async (username, password) => {
             try {
               const response = await login(username, password);
-              console.log("Login successful:", response);
+              console.debug("Login successful:", response);
               router.replace("/(tabs)/main");
             } catch (error) {
               console.error("Login failed:", error);
