@@ -1,6 +1,6 @@
 const BaseColors = {
     gunMetal: "#30343F",
-    ghostWhite: "#FAFAFF",
+    ghostWhite: "#fffafaff",
     periwinkle: "#E4D9FF",
     delftBlue: "#273469",
     spaceCadet: "#1E2749",
@@ -11,6 +11,7 @@ const BaseColors = {
 const Colors = {
     primary: BaseColors.delftBlue,
     secondary: BaseColors.spaceCadet,
+    danger: BaseColors.red,
 
     container:{
         background: BaseColors.ghostWhite,

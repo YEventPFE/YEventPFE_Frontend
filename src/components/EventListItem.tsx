@@ -9,11 +9,11 @@ export type EventListDetailProps = {
     onEventPress?: (event: EventDTO) => void,
     onTagPress?: (tag: string) => void,
     onUserPress?: (userId: string) => void
-    };
+};
 
 export default function EventListItem({ event, onEventPress, onTagPress, onUserPress }: EventListDetailProps) {
     const { t } = useTranslation();
-    console.log(event);
+    
     return (
       <View key={event.id} style={style.eventItem}>
         <Pressable onPress={() => onEventPress?.(event)}>

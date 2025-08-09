@@ -18,7 +18,6 @@ export const getAgeByBirthdate = (birthDate: Date): number => {
 }
 
 export const getTimeAgo = (date: Date): string => {
-    console.log('getTimeAgo called with date:', date);
     const secondsAgo = Math.floor((new Date().getTime() - date.getTime()) / 1000);
     if (secondsAgo < 60) return `${secondsAgo} seconds ago`;
     const minutesAgo = Math.floor(secondsAgo / 60);

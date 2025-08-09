@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
-
 export default function Main() {
   const { t } = useTranslation();
   const [events, setEvents] = useState<EventDTO[]>([]);
@@ -48,9 +47,18 @@ export default function Main() {
   }
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.safeArea}>
       <View style={styles.container}>
         <AppTitle showSubtitle={true} />
+        
+        <Pressable style={GlobalStyles.button}
+          onPress={() => {
+            logOut();
+            router.replace("/(auth)/login");
+          }}
+        >
+          <Text>{t("logout")}</Text>
+        </Pressable>
         <Text style={styles.welcomeText}>
           {t("welcome_to_your_yevent") + ", " + (user?.user.name || "")}
         </Text>
@@ -64,7 +72,7 @@ export default function Main() {
             <EventList
               events={events}
               onEventPress={onEventPress}
-              onTagPress={(tag) => console.log("Tag pressed:", tag)}
+              onTagPress={(tag) => console.log("Tag pressedml:", tag)}
             />
           </View>
         )}
@@ -76,15 +84,6 @@ export default function Main() {
           }}
         >
           <Text>{t("create_event")}</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => {
-            console.log("User logout pressed");
-            logOut();
-            router.replace("/(auth)/login");
-          }}
-        >
-          <Text>{t("logout")}</Text>
         </Pressable>
       </View>
     </ScrollView>
@@ -108,14 +107,18 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     ...GlobalStyles.container,
-    justifyContent: "center",
     alignItems: "center",
-    padding: 20
+  },
+  safeArea: {
+    ...GlobalStyles.safeArea,
   },
   welcomeText: {
     fontSize: 18,
     textAlign: "center",
     marginTop: 20,
     color: "#333",
+  },
+  createEventButton: {
+    ...GlobalStyles.button,
   },
 });

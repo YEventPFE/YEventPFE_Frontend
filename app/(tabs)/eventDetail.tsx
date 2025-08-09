@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { UserDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect, getUser } from "@/viewModels/authViewModel";
 import { onUserPress, useContextEvent } from "@/viewModels/navigationViewModel";
+import { CommentDTO } from "@/dto/commentDTO";
+import { replyToComment } from "@/viewModels/eventViewModel";
 
 export default function EventDetail() {
   const { t } = useTranslation();
@@ -67,9 +69,19 @@ export default function EventDetail() {
 
   return (
     <ScrollView style={styles.container}>
-      <EventDetails event={eventDetail} onUserPress={onUserPress} />
+      <EventDetails event={eventDetail} onUserPress={onUserPress} onReplyToComment={handleReplyToComment} />
     </ScrollView>
   );
+  
+  async function handleReplyToComment(comment: CommentDTO, replyText: string): Promise<CommentDTO> {
+    try {
+      const newComment = await replyToComment({ commentId: comment.id, content: replyText });
+      return newComment;
+    } catch (error) {
+      console.error('Error adding reply:', error);
+      throw error;
+    }
+  }
 }
 
 const styles = StyleSheet.create({

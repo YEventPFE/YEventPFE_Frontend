@@ -20,7 +20,6 @@ export const fetchUserProfileAndRedirect = async (router: Router, userId: string
         setUserProfile(profile);
     } catch (error) {
         console.error('Error fetching user profile:', error);
-        // Optionally redirect to an error page or show a notification
-        router.replace('/error');
+        throw error;
     }
 }

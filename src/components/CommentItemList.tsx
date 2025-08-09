@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, StyleSheet, View, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, View, Pressable, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Colors from '@/constants/colors';
 import Typography from '@/constants/typography';
@@ -10,12 +10,15 @@ import { getTimeAgo } from '@/utils/dateHelper';
 type CommentItemProps = {
     comment: CommentDTO;
     onPress?: (comment: CommentDTO) => void;
-    onReply?: (reply: string) => Promise<CommentDTO>;
+    onReply?: (comment: CommentDTO, replyText: string) => Promise<CommentDTO>;
     onUserPress?: (userId: string) => void;
 };
 
 const CommentListItem: React.FC<CommentItemProps> = ({ comment, onPress, onReply, onUserPress }) => {
     const { t } = useTranslation();
+
+    const [replyText, setReplyText] = useState<string>('');
+    const [isReplying, setIsReplying] = useState<boolean>(false);
 
     return (
         <View style={styles.card} onTouchEnd={() => onPress?.(comment)}>
@@ -30,23 +33,50 @@ const CommentListItem: React.FC<CommentItemProps> = ({ comment, onPress, onReply
                     {getTimeAgo(new Date(comment.date))}
                 </Text>
             </View>
-            <Pressable onPress={handleReply}>
-                <Text style={styles.reply}>{t('reply')}</Text>
-            </Pressable>
+            {onReply && (
+                <View style={styles.replyContainer}>
+                    {!isReplying &&(
+                    <Pressable onPress={() => setIsReplying(true)}>
+                        <Text style={styles.sendReplyButton}>{t('reply')}</Text>
+                    </Pressable>
+                    )}
+                    {isReplying && (
+                        <>
+                            <TextInput
+                                style={styles.replyInput}
+                                multiline={true}
+                                placeholder={t('write_reply')}
+                                value={replyText || ''}
+                                onChangeText={setReplyText}
+                            />
+                            <View style={styles.replyActionsContainer}>
+                                <Pressable onPress={hideReplyUi}>
+                                    <Text style={styles.cancelReplyButton}>{t('cancel')}</Text>
+                                </Pressable>
+                                <Pressable onPress={handleReply}>
+                                    <Text style={styles.sendReplyButton}>{t('send')}</Text>
+                                </Pressable>
+                            </View>
+                        </>
+                    )}
+                </View>
+            )}
+            
         </View>
     );
 
-    function showReplyInput() {
-        //TODO
-        console.log('Reply input shown for comment:', comment.id);
+    function hideReplyUi() {
+        setIsReplying(false);
+        setReplyText('');
     }
 
-    function handleReply() {
+    async function handleReply() {
         if (onReply) {
-            onReply("todo show reply input").then((newComment) => {
+            onReply(comment, replyText || "").then((newComment) => {
                 console.log('New comment added:', newComment);
             }).catch((error) => {
                 console.error('Error adding reply:', error);
+                throw error;
             });
         }
     }
@@ -57,11 +87,12 @@ export default CommentListItem;
 const styles = StyleSheet.create({
     card: {
         ...GlobalStyles.container,
+        borderRadius: 8,
         padding: 16,
-        marginVertical: 8
+        marginVertical: 8,
     },
     content: {
-        ...GlobalStyles.text
+        ...GlobalStyles.text,
     },
     authorContainer:{
         flexDirection: 'row',
@@ -75,13 +106,25 @@ const styles = StyleSheet.create({
     date: {
         ...GlobalStyles.text
     },
-    reply: {
-        ...GlobalStyles.button
-    },
     replyContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'flex-end',
         marginTop: 8,
-    }
+    },
+    replyActionsContainer:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    replyInput: {
+        ...GlobalStyles.textInput,
+    },
+    cancelReplyButton: {
+        ...GlobalStyles.cancelButton,
+    },
+    sendReplyButton: {
+        ...GlobalStyles.button,
+    },
 });
 

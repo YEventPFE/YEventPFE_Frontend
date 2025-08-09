@@ -1,9 +1,19 @@
 import { UserDTO } from "./userDTO";
 
 export type CommentDTO = {
-    id: string;
+    id: number;
     user: UserDTO;
     repliedTo?: CommentDTO;
     content: string;
     date: Date;
+}
+
+export type CreatedCommentDTO = {
+    commentId: number;
+    content: string;
+}
+
+export type ReplyCommentDTO = {
+    commentDto: CommentDTO;
+    message: string;
 }

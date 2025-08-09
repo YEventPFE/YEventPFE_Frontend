@@ -1,13 +1,19 @@
 import { StyleSheet, TextInput } from 'react-native';
 import Colors from '@/constants/colors';
 import Typography from '@/constants/typography';
-import { Button } from '@react-navigation/elements';
 
 const GlobalStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.container.background,
+    // backgroundColor: '#00FF0030', //debug
     padding: 16,
+  },
+  safeArea: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    backgroundColor: Colors.container.background,
   },
   text: {
     fontFamily: Typography.fontFamily.regular,
@@ -31,7 +37,14 @@ const GlobalStyles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 4,
     alignItems: 'center',
-  }
+  },
+  cancelButton: {
+    ...Typography.pressable,
+    backgroundColor: Colors.danger,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 4,
+  },
 });
 
 export default GlobalStyles;

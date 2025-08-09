@@ -4,15 +4,25 @@ import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import { useTranslation } from "react-i18next";
 import CommentList from "./CommentList";
+import { CommentListProps } from "./CommentList";
+import { CommentDTO } from "@/dto/commentDTO";
+import { useState } from "react";
 
 type EventDetailsProps = {
     event: EventDTO,
     onTagPress?: (tag: string) => void,
-    onUserPress?: (userId: string) => void
+    onUserPress?: (userId: string) => void,
+    onReplyToComment?: (comment: CommentDTO, replyText: string) => Promise<CommentDTO>
 };
 
-export default function EventDetails({ event, onTagPress, onUserPress }: EventDetailsProps) {
+export default function EventDetails({ 
+    event: event, 
+    onTagPress: onTagPress, 
+    onUserPress: onUserPress, 
+    onReplyToComment: onReplyToComment 
+}: EventDetailsProps) {
     const { t } = useTranslation();
+
     return (
         <View style={styles.container}>
             <Text style={styles.eventName}>{event.name}</Text>
@@ -29,7 +39,7 @@ export default function EventDetails({ event, onTagPress, onUserPress }: EventDe
                     </Pressable>
                 ))}
             </View>
-            <CommentList comments={event.comments} onUserPress={onUserPress} />
+            <CommentList comments={event.comments} onUserPress={onUserPress} onReply={onReplyToComment} />
         </View>
     );
 }
