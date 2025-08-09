@@ -17,36 +17,20 @@ export type CommentListProps = {
 const CommentList: React.FC<CommentListProps> = ({ comments, onCommentPress, onReply, onUserPress }) => {
     const { t } = useTranslation();
 
-    const [mappedComments, setMappedComments] = useState<CommentDTO[]>(comments);
 
     return (
         <View style={styles.container}>
-            {mappedComments.map((comment) => (
+            {comments.map((comment) => (
                 <CommentListItem
                     key={comment.id}
                     comment={comment}
                     onPress={onCommentPress}
-                    onReply={handleReply}
+                    onReply={onReply}
                     onUserPress={onUserPress}
                 />
             ))}
         </View>
     );
-
-    
-    async function handleReply(comment: CommentDTO, replyText: string): Promise<CommentDTO> {
-        if (onReply) {
-            const dto = await onReply(comment, replyText);
-            console.debug("handleReply dto AVANT MAPPING", dto);
-            setMappedComments((prevState) => {
-                const updated = [...prevState, dto];
-                console.debug("updated ----------------", updated);
-                return updated;
-            });
-            return dto;
-        }
-        throw new Error('No onReply function provided');
-    }
 };
 
 export default CommentList;

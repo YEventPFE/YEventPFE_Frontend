@@ -26,6 +26,8 @@ export default function EventDetails({
 }: EventDetailsProps) {
     const { t } = useTranslation();
 
+    const [mappedComments, setMappedComments] = useState<CommentDTO[]>(event.comments);
+
     return (
       <View style={styles.container}>
         <View>
@@ -54,12 +56,25 @@ export default function EventDetails({
           ))}
         </View>
         <CommentList
-          comments={event.comments}
+          comments={mappedComments}
           onUserPress={onUserPress}
-          onReply={onReplyToComment}
+          onReply={handleReply}
         />
       </View>
     );
+    
+    
+    async function handleReply(comment: CommentDTO, replyText: string): Promise<CommentDTO> {
+        if (onReplyToComment) {
+            const dto = await onReplyToComment(comment, replyText);
+            setMappedComments((prevState) => {
+                const updated = [...prevState, dto];
+                return updated;
+            });
+            return dto;
+        }
+        throw new Error('No onReply function provided');
+    }
 }
 
 const styles = StyleSheet.create({

@@ -94,7 +94,6 @@ export default function Main() {
     setLoading(true);
     try {
       const randomEvents = await getRandomEvents(5);
-      console.debug("Random events fetched:", randomEvents);
       setEvents(randomEvents);
     } catch (error) {
       console.error("Error fetching random events:", error);
