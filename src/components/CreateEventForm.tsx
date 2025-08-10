@@ -146,6 +146,10 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 12,
   },
+  button: {
+    ...GlobalStyles.button,
+    marginTop: 10,
+  },
   error: {
     ...Typography.error,
     marginBottom: 10,

@@ -1,7 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { ScrollView, View, Pressable, Text } from "react-native";
 import { EventListProps, style } from "./EventList";
+import { StyleSheet } from "react-native";
 import { EventDTO } from "@/dto/eventDTO";
+import Colors from "@/constants/colors";
+import Typography from "@/constants/typography";
+import GlobalStyles from "@/styles/global";
 
 
 export type EventListDetailProps = {
@@ -15,20 +19,20 @@ export default function EventListItem({ event, onEventPress, onTagPress, onUserP
     const { t } = useTranslation();
     
     return (
-      <View key={event.id} style={style.eventItem}>
+      <View key={event.id} style={styles.eventItem}>
         <Pressable onPress={() => onEventPress?.(event)}>
-          <Text style={style.eventName}>{event.name}</Text>
+          <Text style={styles.eventName}>{event.name}</Text>
         </Pressable>
-        <Text style={style.eventDescription}>{event.description}</Text>
-        <Text style={style.eventDate}>
+        <Text style={styles.eventDescription}>{event.description}</Text>
+        <Text style={styles.eventDate}>
           {event.startDate} - {event.endDate}
         </Text>
-        <Text style={style.eventLocation}>
+        <Text style={styles.eventLocation}>
           {t("location") + " : "}
           {event.location}
         </Text>
         <Pressable onPress={() => onUserPress?.(event.owner.id)}>
-          <Text style={style.eventOwner}>
+          <Text style={styles.eventOwner}>
             {t("owner") + " : "}
             {event.owner.name}
           </Text>
@@ -36,10 +40,43 @@ export default function EventListItem({ event, onEventPress, onTagPress, onUserP
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
           {event.tags.map((tag) => (
             <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
-              <Text style={style.tag}>#{tag}</Text>
+              <Text style={styles.tag}>#{tag}</Text>
             </Pressable>
           ))}
         </View>
       </View>
     );
 }
+
+const styles = StyleSheet.create({
+  eventItem: {
+    ...GlobalStyles.container,
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: Colors.container.accent,
+  },
+  eventName: {
+    ...Typography.title,
+  },
+  eventDescription: {
+    ...Typography.subtitle,
+  },
+  eventDate: {
+    ...Typography.body,
+    ...Typography.fontSize,
+  },
+  eventLocation: {
+    ...Typography.body,
+    ...Typography.fontSize,
+  },
+  eventOwner: {
+    ...Typography.body,
+    ...Typography.fontSize,
+  },
+  tag: {
+    ...Typography.body,
+    ...Typography.fontSize,
+    marginRight: 5,
+  },
+});

@@ -1,6 +1,6 @@
 import React, { useState, } from "react";
 import { Platform, View, Button, StyleSheet } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import DatePickerWeb from "react-datepicker";
 if (Platform.OS === "web") {
   require("react-datepicker/dist/react-datepicker.css");
@@ -16,7 +16,6 @@ interface Props {
 
 export default function CrossPlatformDatePicker({ date, onChange, placeholderText, showYearDropdown, showTimeSelect }: Props) {
   const [showPicker, setShowPicker] = useState(false);
-
   if (Platform.OS === "web") {
     return (
       <div style={styles.datePicker}>
@@ -44,8 +43,9 @@ export default function CrossPlatformDatePicker({ date, onChange, placeholderTex
       {showPicker && (
         <DateTimePicker
           value={date}
-          mode="date"
+          mode="datetime"
           display="default"
+
           onChange={(_, selectedDate) => {
             setShowPicker(false);
             if (selectedDate) {

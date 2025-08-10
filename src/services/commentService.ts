@@ -23,7 +23,7 @@ export const addComment = async (token: string, body: AddCommentDTO): Promise<Co
   });
 
   if (!response.ok) {
-    throw new Error('Failed to add comment');
+    throw new Error('Failed to add comment ' + response.statusText);
   }
 
   const rawComment = await response.json();

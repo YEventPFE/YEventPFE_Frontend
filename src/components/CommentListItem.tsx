@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, Pressable, TextInput } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import GlobalStyles from '@/styles/global';
 import { CommentDTO } from '@/dto/commentDTO';
-import { getTimeAgo } from '@/utils/dateHelper';
+import { useTimeAgo } from '@/utils/dateHelper';
 import CommentInputs from '@/components/CommentInputs';
 
 type CommentItemProps = {
@@ -16,6 +16,8 @@ type CommentItemProps = {
 const CommentListItem: React.FC<CommentItemProps> = ({ comment, onPress, onReply, onUserPress }) => {
     const { t } = useTranslation();
 
+    const timeAgo = useTimeAgo(new Date(comment.date));
+
     return (
         <View style={styles.card} onTouchEnd={() => onPress?.(comment)}>
             <Text style={styles.content}>
@@ -26,7 +28,7 @@ const CommentListItem: React.FC<CommentItemProps> = ({ comment, onPress, onReply
                     {comment.user?.name || t('Unknown User')}
                 </Text>
                 <Text style={styles.date}>
-                    {getTimeAgo(new Date(comment.date))}
+                    {timeAgo}
                 </Text>
             </View>
             {

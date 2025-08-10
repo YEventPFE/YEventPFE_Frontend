@@ -8,6 +8,7 @@ import { CommentListProps } from "./CommentList";
 import { CommentDTO } from "@/dto/commentDTO";
 import { useState } from "react";
 import CommentInputs from "./CommentInputs";
+import { formatDate } from "@/utils/dateHelper";
 
 type EventDetailsProps = {
     event: EventDTO,
@@ -34,7 +35,7 @@ export default function EventDetails({
             <Text style={styles.eventName}>{event.name}</Text>
             <Text style={styles.eventDescription}>{event.description}</Text>
             <Text style={styles.eventDate}>
-            {event.startDate} - {event.endDate}
+            {formatDate(new Date(event.startDate))} - {formatDate(new Date(event.endDate))}
             </Text>
             <Text style={styles.eventLocation}>
             {t("location") + " : "}
@@ -46,7 +47,7 @@ export default function EventDetails({
                 {event.owner.name}
             </Text>
             </Pressable>
-            {onComment && <CommentInputs event={event} onComment={onComment} />}
+            {onComment && <CommentInputs event={event} onComment={handleComment} />}
         </View>
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
           {event.tags.map((tag) => (
@@ -62,13 +63,26 @@ export default function EventDetails({
         />
       </View>
     );
-    
-    
+
+    async function handleComment(event: EventDTO, commentText: string): Promise<CommentDTO> {
+        if (onComment) {
+            const dto = await onComment(event, commentText);
+            setMappedComments((prevState) => {
+                const updated = [...prevState, dto];
+                event.comments = updated;
+                return updated;
+            });
+            return dto;
+        }
+        throw new Error('No onComment function provided');
+    }
+
     async function handleReply(comment: CommentDTO, replyText: string): Promise<CommentDTO> {
         if (onReplyToComment) {
             const dto = await onReplyToComment(comment, replyText);
             setMappedComments((prevState) => {
                 const updated = [...prevState, dto];
+                event.comments = updated;
                 return updated;
             });
             return dto;

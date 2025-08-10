@@ -24,7 +24,7 @@ describe('EventDetails', () => {
     const mockOnTagPress = jest.fn();
     
     const mockEvent: EventDTO = {
-        id: "1",
+        id: 1,
         name: "Test Event",
         description: "This is a test event.",
         startDate: "2025-01-01",

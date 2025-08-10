@@ -1,6 +1,7 @@
 import AppTitle from "@/components/AppTitle";
 import EventList from "@/components/EventList";
 import WaitingScreen from "@/components/WaitingScreen";
+import Colors from "@/constants/colors";
 import { EventDTO } from "@/dto/eventDTO";
 import { UserDTO } from "@/dto/userDTO";
 import { getRandomEvents } from "@/services/eventService";
@@ -47,43 +48,35 @@ export default function Main() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.safeArea}>
+    <ScrollView>
       <View style={styles.container}>
         <AppTitle showSubtitle={true} />
-        
-        <Pressable style={GlobalStyles.button}
-          onPress={() => {
-            logOut();
-            router.replace("/(auth)/login");
-          }}
-        >
-          <Text>{t("logout")}</Text>
-        </Pressable>
-        <Text style={styles.welcomeText}>
-          {t("welcome_to_your_yevent") + ", " + (user?.user.name || "")}
-        </Text>
-        {loading && (
-          <View>
-            <Text>Loading events...</Text>
-          </View>
-        )}
-        {events.length > 0 && (
-          <View>
+          {events.length > 0 ? (
             <EventList
               events={events}
               onEventPress={onEventPress}
-              onTagPress={(tag) => console.debug("Tag pressedml:", tag)}
+              onTagPress={(tag) => console.debug("Tag pressed:", tag)}
             />
-          </View>
-        )}
-        {events.length === 0 && !loading && <Text>{t("no_events_found")}</Text>}
+          ) : (
+            <Text>{t("no_events_found")}</Text>
+          )}
         <Pressable
+          style={styles.createEventButton}
           onPress={() => {
             console.debug("Navigating to create event");
             router.push("/(tabs)/createEvent");
           }}
         >
           <Text>{t("create_event")}</Text>
+        </Pressable>
+        <Pressable
+          style={styles.logOutButton}
+          onPress={() => {
+            logOut();
+            router.replace("/(auth)/login");
+          }}
+        >
+          <Text>{t("logout")}</Text>
         </Pressable>
       </View>
     </ScrollView>
@@ -93,7 +86,8 @@ export default function Main() {
     console.debug("Fetching random events...");
     setLoading(true);
     try {
-      const randomEvents = await getRandomEvents(5);
+      const randomEvents = await getRandomEvents(6);
+      console.debug("Fetched random events.");
       setEvents(randomEvents);
     } catch (error) {
       console.error("Error fetching random events:", error);
@@ -106,18 +100,13 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     ...GlobalStyles.container,
-    alignItems: "center",
-  },
-  safeArea: {
-    ...GlobalStyles.safeArea,
-  },
-  welcomeText: {
-    fontSize: 18,
-    textAlign: "center",
-    marginTop: 20,
-    color: "#333",
   },
   createEventButton: {
     ...GlobalStyles.button,
+    margin: 8,
   },
+  logOutButton: {
+    ...GlobalStyles.button,
+    margin: 8,
+  }
 });

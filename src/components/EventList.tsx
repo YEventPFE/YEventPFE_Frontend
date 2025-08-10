@@ -4,6 +4,7 @@ import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import { useTranslation } from "react-i18next";
 import EventListItem from "./EventListItem";
+import GlobalStyles from "@/styles/global";
 
 export type EventListProps = {
     events: EventDTO[],
@@ -14,8 +15,9 @@ export type EventListProps = {
 
 export default function EventList({ events, onEventPress, onTagPress, onUserPress }: EventListProps) {
     const { t } = useTranslation();
+    console.debug("Rendering EventList with events:", events);
     return (
-        <ScrollView style={style.container}>
+        <View style={style.container}>
             {events.map(eventItem => (
                 <EventListItem
                     key={eventItem.id}
@@ -25,45 +27,16 @@ export default function EventList({ events, onEventPress, onTagPress, onUserPres
                     onUserPress={onUserPress}
                 />
             ))}
-        </ScrollView>
+        </View>
     );
 }
 
 
 export const style = StyleSheet.create({
     container: {
-        flex: 1,
+        ...GlobalStyles.container,
         padding: 10,
         backgroundColor: Colors.container.background,
         borderRadius: 10,
-    },
-    eventItem: {
-        marginBottom: 15,
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: Colors.container.accent,
-    },
-    eventName: {
-        ...Typography.title,
-    },
-    eventDescription: {
-        ...Typography.subtitle,
-    },
-    eventDate: {
-        ...Typography.body,
-        ...Typography.fontSize,
-    },
-    eventLocation: {
-        ...Typography.body,
-        ...Typography.fontSize,
-    },
-    eventOwner: {
-        ...Typography.body,
-        ...Typography.fontSize,
-    },
-    tag: {
-        ...Typography.body,
-        ...Typography.fontSize,
-        marginRight: 5,
     },
 })
