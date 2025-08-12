@@ -14,7 +14,7 @@ export const fetchUserProfile = async (userId: string): Promise<UserProfileDTO> 
     return getUserProfile(token, userId);
 }
 
-export const fetchUserProfileAndRedirect = async (router: Router, userId: string, setUserProfile: (profile: UserProfileDTO | undefined) => void) => {
+export const fetchAndSetUserProfile = async (userId: string, setUserProfile: (profile: UserProfileDTO | undefined) => void) => {
     try {
         const profile = await fetchUserProfile(userId);
         setUserProfile(profile);

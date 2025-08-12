@@ -13,7 +13,10 @@ export const useNavigateToEvent = () => {
     const { setSelectedEvent } = useEventContext();
 
     return (event: EventDTO, replace: boolean = false) => {
-        setSelectedEvent(event);
+        if (event && event.id && event.owner && event.comments) {
+            //if all required fields are present, cache event for next navigation
+            setSelectedEvent(event);
+        }
 
         if (replace) {
             router.replace({

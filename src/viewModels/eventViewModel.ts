@@ -3,6 +3,7 @@ import { EventDTO, CreatedEventDTO } from "@/dto/eventDTO";
 import { createEvent as createEventService } from "@/services/eventService";
 import { replyToComment as replyToCommentService, addComment as addCommentService } from "@/services/commentService";
 import { getUser } from "@/viewModels/authViewModel";
+import { Router } from "expo-router";
 
 export const createEvent = async (event: CreatedEventDTO) => {
     const user = await getUser();
@@ -27,4 +28,12 @@ export const replyToComment = async (comment: ReplyToCommentDTO) : Promise<Comme
     }
     
     return await replyToCommentService(user.token, comment);
+};
+
+export const goToEventByComment = async (router: Router, comment: CommentDTO) : Promise<void> => {
+    if (!comment.event || !comment.event.id) {
+        console.error("No event associated with comment:", comment);
+        return;
+    }
+    router.push(`/event/${comment.event.id}`);
 };

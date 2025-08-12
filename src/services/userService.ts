@@ -1,4 +1,5 @@
 import { UserProfileDTO } from "@/dto/userDTO";
+import { normalizeDotNetJson } from "@/utils/deserializeHelper";
 
 export const getUserProfile = async (token: string, userId: string): Promise<UserProfileDTO> => {
     if (!token || !userId) {
@@ -19,6 +20,7 @@ export const getUserProfile = async (token: string, userId: string): Promise<Use
         throw new Error('Failed to fetch user profile');
     }
 
-    const userProfile: UserProfileDTO = await response.json();
-    return userProfile;
+    const rawJson : UserProfileDTO = await response.json();
+    const deserializedResponse: UserProfileDTO = normalizeDotNetJson<UserProfileDTO>(rawJson);
+    return deserializedResponse;
 }

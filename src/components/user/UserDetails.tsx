@@ -4,24 +4,35 @@ import Typography from "@/constants/typography";
 import { useTranslation } from "react-i18next";
 import { UserProfileDTO } from "@/dto/userDTO";
 import { getAgeByBirthdate } from "@/utils/dateHelper";
+import CommentList from "../comments/CommentList";
+import { CommentDTO } from "@/dto/commentDTO";
 
 type UserDetailsProps = {
     user: UserProfileDTO,
     onAddFriendPress?: (userId: string) => Promise<boolean>,
+    commentListProps: {
+        comments: CommentDTO[];
+        onCommentPress?: (comment: CommentDTO) => void;
+        onUserPress?: (userId: string) => void;
+    }
 };
 
-export default function UserDetails({ user, onAddFriendPress }: UserDetailsProps) {
+export default function UserDetails({ user, onAddFriendPress, commentListProps }: UserDetailsProps) {
     const { t } = useTranslation();
     return (
         <View style={styles.container}>
             <Text style={styles.userName}>{user.name}</Text>
             <Text style={styles.userAge}>{t('age') + ": " + getAgeByBirthdate(user.birthDate)}</Text>
-            {/**todo add list of public comments */}
             {onAddFriendPress && (
                 <Pressable onPress={() => onAddFriendPress(user.id)}>
                     <Text style={styles.addFriendButton}>{t('add_friend')}</Text>
                 </Pressable>
             )}
+            <CommentList
+                comments={commentListProps.comments || user.publicComments}
+                onUserPress={commentListProps.onUserPress}
+                onCommentPress={commentListProps.onCommentPress}
+            />
         </View>
     );
 }

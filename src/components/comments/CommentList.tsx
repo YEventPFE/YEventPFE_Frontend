@@ -18,6 +18,13 @@ const CommentList: React.FC<CommentListProps> = ({ comments, onCommentPress, onR
     const { t } = useTranslation();
 
 
+    if (!comments || comments.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text style={GlobalStyles.text}>{t('no_comments')}</Text>
+            </View>
+        );
+    }
     return (
         <View style={styles.container}>
             {comments.map((comment) => (

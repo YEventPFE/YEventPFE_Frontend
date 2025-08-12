@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 import UserDetails from "@/components/user/UserDetails";
 import { UserDTO, UserProfileDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
-import { fetchUserProfileAndRedirect } from "@/viewModels/profileViewModel";
+import { fetchAndSetUserProfile } from "@/viewModels/profileViewModel";
 import { useOnAddFriendPress } from "@/viewModels/friendViewModel";
 import NotLoggedIn from "@/components/NotLoggedIn";
+import { CommentDTO } from "@/dto/commentDTO";
+import { goToEventByComment } from "@/viewModels/eventViewModel";
+import { useNavigateToEvent } from "@/viewModels/navigationViewModel";
 
 export default function UserProfile() {
   const { t } = useTranslation();
@@ -17,6 +20,7 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState<UserProfileDTO | undefined>(undefined);
 
+  const onEventPress = useNavigateToEvent();
 
   useEffect(() => {
     if (!id) {
@@ -25,7 +29,7 @@ export default function UserProfile() {
     }
 
     try {
-      fetchUserProfileAndRedirect(router, id, setUserProfile);
+      fetchAndSetUserProfile(id, setUserProfile);
       fetchUserAndRedirect(router, setConnectedUser);
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -59,10 +63,20 @@ export default function UserProfile() {
       </View>
     );
   }
+
   console.debug("User profile fetched:", userProfile);
   return (
     <ScrollView style={styles.container}>
-      <UserDetails user={userProfile} onAddFriendPress={onAddFriendPress} />
+      <UserDetails user={userProfile} onAddFriendPress={onAddFriendPress} commentListProps={{
+        comments: userProfile.publicComments,
+        onCommentPress: (comment) => {
+          if (comment.event && comment.event.id) {
+            console.debug("onCommentPress");
+            onEventPress(comment.event);
+          }
+        },
+        onUserPress: (userId) => router.push(`/users/${userId}`),
+      }} />
     </ScrollView>
   );
 }
