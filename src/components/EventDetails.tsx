@@ -3,11 +3,10 @@ import { View, Text,StyleSheet, Pressable, ScrollView } from "react-native";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import { useTranslation } from "react-i18next";
-import CommentList from "./CommentList";
-import { CommentListProps } from "./CommentList";
+import CommentList from "@/components/comments/CommentList";
 import { CommentDTO } from "@/dto/commentDTO";
 import { useState } from "react";
-import CommentInputs from "./CommentInputs";
+import CommentInputs from "@/components/comments/CommentInputs";
 import { formatDate } from "@/utils/dateHelper";
 
 type EventDetailsProps = {

@@ -5,7 +5,7 @@ import Colors from '@/constants/colors';
 import Typography from '@/constants/typography';
 import GlobalStyles from '@/styles/global';
 import { CommentDTO } from '@/dto/commentDTO';
-import CommentListItem from '@/components/CommentListItem';
+import CommentListItem from '@/components/comments/CommentListItem';
 
 export type CommentListProps = {
     comments: CommentDTO[];

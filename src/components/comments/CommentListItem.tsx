@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import GlobalStyles from '@/styles/global';
 import { CommentDTO } from '@/dto/commentDTO';
 import { useTimeAgo } from '@/utils/dateHelper';
-import CommentInputs from '@/components/CommentInputs';
+import CommentInputs from '@/components/comments/CommentInputs';
 
 type CommentItemProps = {
     comment: CommentDTO;
