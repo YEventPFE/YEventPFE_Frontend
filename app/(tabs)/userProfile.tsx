@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import EventDetails from "@/components/events/EventDetails";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import UserDetails from "@/components/UserDetails";
+import UserDetails from "@/components/user/UserDetails";
 import { UserDTO, UserProfileDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
 import { fetchUserProfileAndRedirect } from "@/viewModels/profileViewModel";
