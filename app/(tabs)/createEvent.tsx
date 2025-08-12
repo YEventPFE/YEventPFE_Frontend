@@ -1,4 +1,4 @@
-import CreateEventForm from "@/components/CreateEventForm";
+import CreateEventForm from "@/components/events/CreateEventForm";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import { CreatedEventDTO } from "@/dto/eventDTO";
