@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
-import EventDetails from "@/components/EventDetails";
+import EventDetails from "@/components/events/EventDetails";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import UserDetails from "@/components/UserDetails";

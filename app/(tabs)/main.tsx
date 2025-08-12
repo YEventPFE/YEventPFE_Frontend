@@ -1,5 +1,5 @@
 import AppTitle from "@/components/AppTitle";
-import EventList from "@/components/EventList";
+import EventList from "@/components/events/EventList";
 import WaitingScreen from "@/components/WaitingScreen";
 import Colors from "@/constants/colors";
 import { EventDTO } from "@/dto/eventDTO";

@@ -9,10 +9,9 @@ import {
 } from "react-native";
 import {Checkbox} from "expo-checkbox";
 import {useTranslation} from "react-i18next";
-import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
-import CrossPlatformDatePicker from "./CrossPlatformDatePicker";
+import CrossPlatformDatePicker from "@/components/CrossPlatformDatePicker";
 import { CreatedEventDTO, EventDTO } from "@/dto/eventDTO";
 
 
