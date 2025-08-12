@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
-import EventDetails from './EventDetails';
+import EventDetails from '@/components/events/EventDetails';
 import { EventDTO } from '@/dto/eventDTO';
 
 jest.mock('react-i18next', () => ({

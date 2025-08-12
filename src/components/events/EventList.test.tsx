@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
 import { EventDTO } from '@/dto/eventDTO';
-import EventList from './EventList';
+import EventList from '@/components/events/EventList';
 
 
 jest.mock('react-i18next', () => ({
@@ -26,7 +26,7 @@ describe('EventList', () => {
 
     const mockList : EventDTO[] = [
         {
-            id: "1",
+            id: 1,
             name: "Test Event",
             description: "This is a test event.",
             startDate: "2025-01-01",
@@ -38,7 +38,7 @@ describe('EventList', () => {
             isMature: true
         },
         {
-            id: "2",
+            id: 2,
             name: "Another Event",
             description: "This is another test event.",
             startDate: "2025-02-01",
