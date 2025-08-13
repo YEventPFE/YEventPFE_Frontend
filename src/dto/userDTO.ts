@@ -18,4 +18,11 @@ export type UserProfileDTO = {
     name: string;
     birthDate: Date;
     publicComments: CommentDTO[];
+    friendRequestStatus?: FriendRequestStatus;
+}
+
+export enum FriendRequestStatus {
+    Pending = 0,
+    Accepted = 1,
+    Declined = 2
 }

@@ -67,7 +67,20 @@ export default function UserProfile() {
   console.debug("User profile fetched:", userProfile);
   return (
     <ScrollView style={styles.container}>
-      <UserDetails user={userProfile} onAddFriendPress={onAddFriendPress} commentListProps={{
+      <UserDetails 
+      user={userProfile} 
+      onAddFriendPress={onAddFriendPress} 
+      onCancelFriendRequestPress={async () => {
+        //return true with a 1s delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return true;
+      }}
+      onRemoveFriendPress={async () => {
+        //return true with a 1s delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return true;
+      }}
+      commentListProps={{
         comments: userProfile.publicComments,
         onCommentPress: (comment) => {
           if (comment.event && comment.event.id) {
