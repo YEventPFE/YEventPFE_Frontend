@@ -7,7 +7,7 @@ import UserDetails from "@/components/user/UserDetails";
 import { UserDTO, UserProfileDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
 import { fetchAndSetUserProfile } from "@/viewModels/profileViewModel";
-import { useOnAddFriendPress } from "@/viewModels/friendViewModel";
+import { useOnAddFriendPress, useOnCancelFriendRequestPress, useOnRemoveFriendPress } from "@/viewModels/friendViewModel";
 import NotLoggedIn from "@/components/NotLoggedIn";
 import { CommentDTO } from "@/dto/commentDTO";
 import { goToEventByComment } from "@/viewModels/eventViewModel";
@@ -55,6 +55,8 @@ export default function UserProfile() {
   }
 
   const onAddFriendPress = useOnAddFriendPress(connectedUser.token);
+  const onCancelFriendRequestPress = useOnCancelFriendRequestPress(connectedUser.token);
+  const onRemoveFriendPress = useOnRemoveFriendPress(connectedUser.token);
 
   if (!userProfile) {
     return (
@@ -70,16 +72,8 @@ export default function UserProfile() {
       <UserDetails 
       user={userProfile} 
       onAddFriendPress={onAddFriendPress} 
-      onCancelFriendRequestPress={async () => {
-        //return true with a 1s delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return true;
-      }}
-      onRemoveFriendPress={async () => {
-        //return true with a 1s delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return true;
-      }}
+      onCancelFriendRequestPress={onCancelFriendRequestPress}
+      onRemoveFriendPress={onRemoveFriendPress}
       commentListProps={{
         comments: userProfile.publicComments,
         onCommentPress: (comment) => {

@@ -41,3 +41,42 @@ export const addFriend = async (token: string, friendId: string): Promise<void> 
         throw new Error('Failed to add friend');
     }
 }
+
+export const cancelFriendRequest = async (token: string, friendId: string): Promise<void> => {
+    if (!token || !friendId) {
+        throw new Error('Token and friendId are required');
+    }
+
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+    if (!apiUrl) {
+        throw new Error('API URL is not defined');
+    }
+    const response = await fetch(`${apiUrl}/Friend/CancelRequest?friendId=${friendId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+    });
+
+    console.log("response code :", response.status)
+    if (!response.ok) {
+        throw new Error('Failed to cancel friend request');
+    }
+}
+
+export const removeFriend = async (token: string, friendId: string): Promise<void> => {
+    if (!token || !friendId) {
+        throw new Error('Token and friendId are required');
+    }
+
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+    if (!apiUrl) {
+        throw new Error('API URL is not defined');
+    }
+    const response = await fetch(`${apiUrl}/Friend/Remove?friendId=${friendId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to remove friend');
+    }
+}
