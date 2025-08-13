@@ -1,4 +1,5 @@
 import { CommentDTO } from "./commentDTO";
+import { FriendRequestStatus } from "./friendDTO";
 
 export type UserDTO = {
     id: string;
@@ -19,10 +20,4 @@ export type UserProfileDTO = {
     birthDate: Date;
     publicComments: CommentDTO[];
     friendRequestStatus?: FriendRequestStatus;
-}
-
-export enum FriendRequestStatus {
-    Pending = 0,
-    Accepted = 1,
-    Declined = 2
 }

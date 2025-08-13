@@ -15,7 +15,6 @@ export type EventListProps = {
 
 export default function EventList({ events, onEventPress, onTagPress, onUserPress }: EventListProps) {
     const { t } = useTranslation();
-    console.debug("Rendering EventList with events:", events);
     return (
         <View style={style.container}>
             {events.map(eventItem => (

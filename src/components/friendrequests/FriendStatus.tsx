@@ -1,4 +1,4 @@
-import { FriendRequestStatus } from "@/dto/userDTO";
+import { FriendRequestStatus } from "@/dto/friendDTO";
 import { Pressable, Text } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";

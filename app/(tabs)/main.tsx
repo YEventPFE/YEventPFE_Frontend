@@ -78,6 +78,14 @@ export default function Main() {
         >
           <Text>{t("logout")}</Text>
         </Pressable>
+        <Pressable
+          style={styles.logOutButton}
+          onPress={() => {
+            router.push("/(tabs)/friendRequests");
+          }}
+        >
+          <Text>{t("friend_requests")}</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
@@ -87,7 +95,6 @@ export default function Main() {
     setLoading(true);
     try {
       const randomEvents = await getRandomEvents(6);
-      console.debug("Fetched random events.");
       setEvents(randomEvents);
     } catch (error) {
       console.error("Error fetching random events:", error);

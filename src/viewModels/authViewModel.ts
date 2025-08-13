@@ -98,7 +98,7 @@ export const fetchUserAndRedirect = async (router: Router, setUser: (user: { tok
       return;
     }
     setUser(fetchedUser);
-    console.debug("User fetched successfully:", fetchedUser);
+    console.debug("User fetched successfully. Current user is", fetchedUser.user.name);
   } catch (error) {
     console.error("Error fetching user:", error);
     router.replace("/(auth)/login");
