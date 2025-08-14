@@ -86,6 +86,14 @@ export default function Main() {
         >
           <Text>{t("friend_requests")}</Text>
         </Pressable>
+        <Pressable
+          style={styles.logOutButton}
+          onPress={() => {
+            router.push("/(tabs)/myFriendlist");
+          }}
+        >
+          <Text>{t("my_friends")}</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );

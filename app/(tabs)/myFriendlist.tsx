@@ -1,0 +1,54 @@
+import { UserDTO, UserListDTO } from "@/dto/userDTO";
+import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
+import { fetchAndSetUserList, useOnRemoveFriendPress } from "@/viewModels/friendViewModel";
+import { onUserPress } from "@/viewModels/navigationViewModel";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { View, Text } from "react-native";
+import FriendList from "@/components/friends/friendlist";
+
+
+export default function MyFriendList(){
+    const { t } = useTranslation();
+    const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [friendList, setFriendList] = useState<UserListDTO | null>(null);
+
+
+    useEffect(() => {
+        fetchUserAndRedirect(router, setUser)
+            .catch(err => setError(err.message))
+        }, []);
+    
+    useEffect(() => {
+    if (user) {
+        fetchAndSetUserList(user.token, setFriendList)
+        .catch(err => setError(err.message))
+        .finally(() => setLoading(false));
+    }
+    }, [user]);
+
+    if (loading) {
+        return <Text>{t('loading')}</Text>;
+    }
+
+    if (!user) {
+        return <Text>{t('user_not_found')}</Text>;
+    }
+
+    if (error || !friendList) {
+        return <Text>{t('error_loading_friendlist')}, { error }</Text>;
+    }
+
+    const onRemoveFriend = useOnRemoveFriendPress(user.token);
+
+    return (
+        <FriendList
+            friends={friendList}
+            onPress={onUserPress}
+            onRemove={onRemoveFriend}
+        />
+    );
+}

@@ -21,7 +21,8 @@ export const getUserFriendList = async (token: string): Promise<UserListDTO> => 
         throw new Error('Failed to fetch user list');
     }
 
-    const userList: UserListDTO = await response.json();
+    const rawResponse: UserListDTO = await response.json();
+    const userList: UserListDTO = normalizeDotNetJson<UserListDTO>(rawResponse);
     return userList;
 };
 

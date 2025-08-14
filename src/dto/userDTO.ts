@@ -9,7 +9,6 @@ export type UserDTO = {
 export type UserListDTO = {
     id: string;
     name: string;
-    isPublic: boolean;
     groupOwner : UserDTO;
     members: UserDTO[];
 };
