@@ -6,7 +6,7 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View, Text } from "react-native";
-import FriendList from "@/components/friends/friendlist";
+import FriendList from "@/components/friends/FriendList";
 
 
 export default function MyFriendList(){
