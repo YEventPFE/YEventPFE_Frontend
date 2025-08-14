@@ -10,7 +10,6 @@ export const login = async (name: string, password: string): Promise<LoginRespon
     throw new Error('API URL is not defined');
   }
   const loginDto: LoginDTO = { name, password };
-  // Convert the DTO to JSON
   var body = JSON.stringify(loginDto);
   const response = await fetch(`${apiUrl}/auth/login`, {
     method: 'POST',
@@ -24,7 +23,6 @@ export const login = async (name: string, password: string): Promise<LoginRespon
 
   //parse 'userDto' from response
   const jsonResponse = await response.json();
-  console.debug('Parsed response:', jsonResponse);
   const userDto = jsonResponse.userDto;
   if (!userDto || !userDto.name) {
     throw new Error('Invalid response from server');
