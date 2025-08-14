@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FriendRequestDTO } from "@/dto/friendDTO";
 import { fetchAndSetPendingFriendRequests, useOnAcceptFriendRequest, useOnDeclineFriendRequest } from "@/viewModels/friendViewModel";
-import FriendRequestList from "@/components/friendrequests/FriendRequestList";
+import FriendRequests from "@/components/friendrequests/FriendRequests";
 
 
 export default function friendRequests() {
@@ -47,8 +47,8 @@ export default function friendRequests() {
     const onDecline = useOnDeclineFriendRequest(user.token);
     if (friendRequests) {
         return (
-            <FriendRequestList
-                friendRequests={friendRequests}
+            <FriendRequests
+                pendingRequests={friendRequests}
                 onAccept={onAccept}
                 onDecline={onDecline}
             />
