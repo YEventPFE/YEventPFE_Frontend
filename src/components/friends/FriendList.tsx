@@ -1,5 +1,5 @@
 import { UserDTO, UserListDTO, UserProfileDTO } from "@/dto/userDTO";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import FriendItem from "@/components/friends/FriendItem";
 import { useState } from "react";
 
@@ -18,6 +18,10 @@ const FriendList: React.FC<FriendListProps> = ({ friends, onRemove, onPress }) =
         }
         return success;
     };
+
+    if (friendList.length === 0) {
+        return <View><Text>No friends found</Text></View>;
+    }
 
     return (
         <View>
