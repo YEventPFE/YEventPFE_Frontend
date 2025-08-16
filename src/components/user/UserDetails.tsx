@@ -7,12 +7,16 @@ import { getAgeByBirthdate } from "@/utils/dateHelper";
 import CommentList from "../comments/CommentList";
 import { CommentDTO } from "@/dto/commentDTO";
 import FriendStatus from "../friendrequests/FriendStatus";
+import EventList from "../events/EventList";
+import { EventDTO } from "@/dto/eventDTO";
 
 type UserDetailsProps = {
     user: UserProfileDTO,
     onAddFriendPress?: (userId: string) => Promise<boolean>,
     onRemoveFriendPress?: (userId: string) => Promise<boolean>,
     onCancelFriendRequestPress?: (userId: string) => Promise<boolean>,
+    onEventPress?: (event: EventDTO) => void,
+    onTagPress?: (tag: string) => void,
     commentListProps: {
         comments: CommentDTO[];
         onCommentPress?: (comment: CommentDTO) => void;
@@ -20,7 +24,7 @@ type UserDetailsProps = {
     }
 };
 
-export default function UserDetails({ user, onAddFriendPress, onRemoveFriendPress, onCancelFriendRequestPress, commentListProps }: UserDetailsProps) {
+export default function UserDetails({ user, onAddFriendPress, onRemoveFriendPress, onCancelFriendRequestPress, onEventPress, onTagPress, commentListProps }: UserDetailsProps) {
     const { t } = useTranslation();
     return (
         <View style={styles.container}>
@@ -32,6 +36,11 @@ export default function UserDetails({ user, onAddFriendPress, onRemoveFriendPres
             onAddFriendPress={onAddFriendPress} 
             onRemoveFriendPress={onRemoveFriendPress} 
             onCancelFriendRequestPress={onCancelFriendRequestPress} 
+            />
+            <EventList 
+                events={user.publicEvents}
+                onEventPress={onEventPress}
+                onTagPress={onTagPress}
             />
             <CommentList
                 comments={commentListProps.comments || user.publicComments}

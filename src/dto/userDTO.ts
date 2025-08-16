@@ -1,4 +1,5 @@
 import { CommentDTO } from "./commentDTO";
+import { EventDTO } from "./eventDTO";
 import { FriendRequestStatus } from "./friendDTO";
 
 export type UserDTO = {
@@ -18,5 +19,6 @@ export type UserProfileDTO = {
     name: string;
     birthDate: Date;
     publicComments: CommentDTO[];
+    publicEvents: EventDTO[];
     friendRequestStatus?: FriendRequestStatus;
 }

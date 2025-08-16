@@ -6,7 +6,7 @@ export default {
       "expo-secure-store",
     ],
     extra: {
-      expectedServerVersion: '0.3.0',
+      expectedServerVersion: '0.4.0',
     },
   },
   "compilerOptions": {

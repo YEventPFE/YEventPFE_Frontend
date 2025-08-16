@@ -8,6 +8,7 @@ import { CommentDTO } from "@/dto/commentDTO";
 import { useState } from "react";
 import CommentInputs from "@/components/comments/CommentInputs";
 import { formatDate } from "@/utils/dateHelper";
+import EventList from "./EventList";
 
 type EventDetailsProps = {
     event: EventDTO,

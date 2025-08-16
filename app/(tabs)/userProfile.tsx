@@ -74,6 +74,10 @@ export default function UserProfile() {
       onAddFriendPress={onAddFriendPress} 
       onCancelFriendRequestPress={onCancelFriendRequestPress}
       onRemoveFriendPress={onRemoveFriendPress}
+      onEventPress={onEventPress}
+      onTagPress={(tag: string) => {
+        console.debug("onTagPress:", tag); //TODO
+      }}
       commentListProps={{
         comments: userProfile.publicComments,
         onCommentPress: (comment) => {
