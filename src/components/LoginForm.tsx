@@ -65,6 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         placeholder={t("password")}
         value={password}
         onChangeText={setPassword}
+        autoCapitalize="none"
         secureTextEntry
         style={styles.input}
       />
@@ -86,6 +87,7 @@ export default LoginForm;
 const styles = StyleSheet.create({
   container: {
     ...GlobalStyles.container,
+    width: '100%',
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -93,6 +95,8 @@ const styles = StyleSheet.create({
   },
   input: {
     ...GlobalStyles.textInput,
+    textAlign: "center",
+    width: '50%',
     marginBottom: 10,
   },
   error: {
@@ -100,8 +104,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: Colors.primary,
-    padding: 10,
-    borderRadius: 5,
+    ...GlobalStyles.button,
   },
 });

@@ -10,6 +10,7 @@ import { fetchUserAndRedirect, getUser } from "@/viewModels/authViewModel";
 import { onUserPress, useContextEvent } from "@/viewModels/navigationViewModel";
 import { CommentDTO } from "@/dto/commentDTO";
 import { addComment, replyToComment } from "@/viewModels/eventViewModel";
+import GlobalStyles from "@/styles/global";
 
 export default function EventDetail() {
   const { t } = useTranslation();
@@ -96,6 +97,7 @@ export default function EventDetail() {
 
 const styles = StyleSheet.create({
   container: {
+    ...GlobalStyles.container,
     flex: 1,
   }
 });

@@ -22,9 +22,13 @@ const GlobalStyles = StyleSheet.create({
   },
   textInput: {
     height: 40,
+    width: '100%',
     borderColor: Colors.container.border,
     borderWidth: 1,
     borderRadius: 4,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
     paddingHorizontal: 8,
     fontFamily: Typography.fontFamily.regular,
     fontSize: Typography.fontSize.medium,

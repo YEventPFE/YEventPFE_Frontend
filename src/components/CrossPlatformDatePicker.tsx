@@ -2,6 +2,7 @@ import React, { useState, } from "react";
 import { Platform, View, Button, StyleSheet } from "react-native";
 import DateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import DatePickerWeb from "react-datepicker";
+import GlobalStyles from "@/styles/global";
 if (Platform.OS === "web") {
   require("react-datepicker/dist/react-datepicker.css");
 }
@@ -59,6 +60,7 @@ export default function CrossPlatformDatePicker({
             value={date}
             mode="date"
             display="default"
+            locale="fr-FR"
             onChange={(_, selectedDate) => {
               setShowDatePicker(false);
               if (selectedDate) {
@@ -113,18 +115,13 @@ export default function CrossPlatformDatePicker({
 
 const styles = StyleSheet.create({
     container: {
+        ...GlobalStyles.container,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
     button: {
-        backgroundColor: "#007BFF",
-        padding: 10,
-        borderRadius: 5,
-    },
-    buttonText: {
-        color: "#fff",
-        fontSize: 16,
+      ...GlobalStyles.button,
     },
     datePicker: {
         padding: 10,

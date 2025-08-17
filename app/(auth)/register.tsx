@@ -7,23 +7,37 @@ export default function Register() {
     const { t } = useTranslation();
     const router = useRouter();
     
+    const onSubmit = async (
+      username: string,
+      password: string,
+      email: string,
+      birthdate: Date,
+      phoneNumber: string
+    ) => {
+      try {
+        const response = await register(
+          username,
+          password,
+          email,
+          birthdate,
+          phoneNumber
+        );
+        console.debug("Register successful:", response);
+        router.replace("/(auth)/login"); // Redirect to login after successful registration
+      } catch (error) {
+        Toast.show({
+          type: "error",
+          text1: t("error_registering"),
+          text2: (error as Error).message || t("please_try_again_later"),
+        });
+        console.error("Register failed:", error);
+      }
+    };
+
     return (
       <RegisterForm
         buttonLabel={t("register") || "Register"}
-        onSubmit={async (username, password, email, birthdate, phoneNumber) => {
-          try {
-            const response = await register(username, password, email, birthdate, phoneNumber);
-            console.debug("Register successful:", response);
-            router.push("/(auth)/login"); // Redirect to login after successful registration
-          } catch (error) {
-            Toast.show({
-              type: 'error',
-              text1: t('error_registering'),
-              text2: (error as Error).message || t('please_try_again_later'),
-            });
-            console.error("Register failed:", error);
-          }
-        }}
+        onSubmit={onSubmit}
       />
     );
 }

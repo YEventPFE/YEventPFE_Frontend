@@ -95,20 +95,22 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
                 autoCapitalize="none"
                 style={styles.input}
             />
-            {error && <Text style={styles.error}>{error}</Text>}
-            <Button
-                title={buttonLabel}
-                color={styles.button.backgroundColor}
-                accessibilityLabel={buttonLabel}
-                onPress={handleRegister}
-                disabled={loading}
-            />
-            {loading && (
-                <>
-                    <ActivityIndicator size="small" color="#333" />
-                    <Text>{t('loading')}</Text>
-                </>
-            )}
+            <View style={styles.buttonRegisterContainer}>
+                <Button
+                    title={buttonLabel}
+                    color={styles.button.backgroundColor}
+                    accessibilityLabel={buttonLabel}
+                    onPress={handleRegister}
+                    disabled={loading}
+                />
+                {error && <Text style={styles.error}>{error}</Text>}
+                {loading && (
+                    <>
+                        <ActivityIndicator size="small" color="#333" />
+                        <Text>{t('loading')}</Text>
+                    </>
+                )}
+            </View>
         </View>
     );
 }
@@ -134,7 +136,9 @@ const styles = StyleSheet.create({
     },
     button: {
         ...GlobalStyles.button,
-        backgroundColor: Colors.primary,
         marginTop: 10,
-    }
+    },
+    buttonRegisterContainer: {
+        marginTop: 30,
+    },
 });
