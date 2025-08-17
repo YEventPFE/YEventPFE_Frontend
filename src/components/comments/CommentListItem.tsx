@@ -21,14 +21,14 @@ const CommentListItem: React.FC<CommentItemProps> = ({ comment, onPress, onReply
     return (
         <View style={styles.card} onTouchEnd={() => onPress?.(comment)}>
             <Text style={styles.content}>
-                {comment.content || t('no_content')}
+                {getCommentContent(comment)}
             </Text>
             <View style={styles.authorContainer}>
-                <Text style={styles.author} onPress={() => onUserPress?.(comment.user.id)}>
-                    {comment.user?.name || t('Unknown User')}
-                </Text>
                 <Text style={styles.date}>
                     {timeAgo}
+                </Text>
+                <Text style={styles.author} onPress={() => onUserPress?.(comment.user.id)}>
+                    {comment.user?.name || t('Unknown User')}
                 </Text>
             </View>
             {
@@ -41,7 +41,15 @@ const CommentListItem: React.FC<CommentItemProps> = ({ comment, onPress, onReply
             }
         </View>
     );
-};
+
+    function getCommentContent(comment: CommentDTO): string {
+        let textContent = comment.content;
+        if (comment.repliedTo && comment.repliedTo.user) {
+            textContent = "@" + comment.repliedTo.user.name + " " + comment.content;
+        }
+        return textContent;
+    }
+}
 
 export default CommentListItem;
 
@@ -51,6 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 16,
         marginVertical: 8,
+        width: '100%',
     },
     content: {
         ...GlobalStyles.text,

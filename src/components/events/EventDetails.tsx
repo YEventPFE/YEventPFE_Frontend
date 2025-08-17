@@ -34,28 +34,36 @@ export default function EventDetails({
         <View>
             <Text style={styles.eventName}>{event.name}</Text>
             <Text style={styles.eventDescription}>{event.description}</Text>
-            <Text style={styles.eventDate}>
-            {formatDate(new Date(event.startDate))} - {formatDate(new Date(event.endDate))}
-            </Text>
             <Text style={styles.eventLocation}>
-            {t("location") + " : "}
-            {event.location}
+                {t("location") + " : "}
+                {event.location}
             </Text>
+            <View style={styles.eventDateContainer}>
+                <Text >
+                    {formatDate(new Date(event.startDate))}
+                </Text>
+                <Text> - </Text>
+                <Text>
+                    {formatDate(new Date(event.endDate))}
+                </Text>
+            </View>
             <Pressable onPress={() => onUserPress?.(event.owner.id)}>
-            <Text style={styles.eventOwner}>
-                {t("owner") + " : "}
-                {event.owner.name}
-            </Text>
+            <View style={styles.eventOwnerContainer}>
+                <Text style={styles.eventOwner}>
+                    {t("owner") + " : "}
+                    {event.owner.name}
+                </Text>
+            </View>
             </Pressable>
-            {onComment && <CommentInputs event={event} onComment={handleComment} />}
+            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                {event.tags.map((tag) => (
+                    <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
+                    <Text style={styles.tag}>#{tag}</Text>
+                    </Pressable>
+                ))}
+            </View>
         </View>
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-          {event.tags.map((tag) => (
-            <Pressable key={tag} onPress={() => onTagPress?.(tag)}>
-              <Text style={styles.tag}>#{tag}</Text>
-            </Pressable>
-          ))}
-        </View>
+        {onComment && <CommentInputs event={event} onComment={handleComment} />}
         <CommentList
           comments={mappedComments}
           onUserPress={onUserPress}
@@ -104,6 +112,11 @@ const styles = StyleSheet.create({
         ...Typography.body,
         marginBottom: 8,
     },
+    eventDateContainer:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        marginBottom: 8,
+    },
     eventDate: {
         ...Typography.body,
         marginBottom: 8,
@@ -114,6 +127,10 @@ const styles = StyleSheet.create({
     },
     eventOwner: {
         ...Typography.body,
+        marginBottom: 8,
+    },
+    eventOwnerContainer: {
+        alignItems: "flex-end",
         marginBottom: 8,
     },
     tag: {

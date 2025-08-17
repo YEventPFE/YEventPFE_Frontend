@@ -6,6 +6,7 @@ import { EventDTO } from "@/dto/eventDTO";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
+import {formatDate} from "@/utils/dateHelper";
 
 
 export type EventListDetailProps = {
@@ -25,7 +26,7 @@ export default function EventListItem({ event, onEventPress, onTagPress, onUserP
         </Pressable>
         <Text style={styles.eventDescription}>{event.description}</Text>
         <Text style={styles.eventDate}>
-          {event.startDate} - {event.endDate}
+          {formatDate(new Date(event.startDate))} - {formatDate(new Date(event.endDate))}
         </Text>
         <Text style={styles.eventLocation}>
           {t("location") + " : "}

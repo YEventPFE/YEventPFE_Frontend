@@ -1,3 +1,4 @@
+import FadeInView from "@/animations/FadeInView";
 import { CommentDTO } from "@/dto/commentDTO";
 import { EventDTO } from "@/dto/eventDTO";
 import GlobalStyles from "@/styles/global";
@@ -21,27 +22,34 @@ const CommentInputs: React.FC<CommentInputsProps> = (props : CommentInputsProps)
   return (
     <View style={styles.replyContainer}>
       {!isReplying && (
-        <Pressable onPress={() => setIsReplying(true)}>
-          <Text style={styles.sendReplyButton}>{t("reply")}</Text>
-        </Pressable>
+          <FadeInView style={{}} duration={200}>
+              <View style={styles.replyButton}>
+                <Pressable onPress={() => setIsReplying(true)}>
+                  <Text>{t("reply")}</Text>
+                </Pressable>
+              </View>
+          </FadeInView>
       )}
       {isReplying && (
         <>
-          <TextInput
-            style={styles.replyInput}
-            multiline={true}
-            placeholder={t("write_reply")}
-            value={replyText || ""}
-            onChangeText={setReplyText}
-          />
-          <View style={styles.replyActionsContainer}>
-            <Pressable onPress={hideReplyUi}>
-              <Text style={styles.cancelReplyButton}>{t("cancel")}</Text>
-            </Pressable>
-            <Pressable onPress={handleReply}>
-              <Text style={styles.sendReplyButton}>{t("send")}</Text>
-            </Pressable>
-          </View>
+          <FadeInView style={{}} duration={200}>
+            <TextInput
+              style={styles.replyInput}
+              multiline={true}
+              placeholder={t("write_reply")}
+              value={replyText || ""}
+              autoFocus={true}
+              onChangeText={setReplyText}
+            />
+            <View style={styles.replyActionsContainer}>
+              <Pressable onPress={hideReplyUi}>
+                <Text style={styles.cancelReplyButton}>{t("cancel")}</Text>
+              </Pressable>
+              <Pressable onPress={handleReply}>
+                <Text style={styles.sendReplyButton}>{t("send")}</Text>
+              </Pressable>
+            </View>
+          </FadeInView>
         </>
       )}
     </View>
@@ -65,31 +73,15 @@ const CommentInputs: React.FC<CommentInputsProps> = (props : CommentInputsProps)
 export default CommentInputs;
 
 const styles = StyleSheet.create({
-    card: {
-        ...GlobalStyles.container,
-        borderRadius: 8,
-        padding: 16,
-        marginVertical: 8,
-    },
-    content: {
-        ...GlobalStyles.text,
-    },
-    authorContainer:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 8
-    },
-    author: {
-        ...GlobalStyles.text
-    },
-    date: {
-        ...GlobalStyles.text
-    },
     replyContainer: {
         flexDirection: 'column',
         justifyContent: 'flex-end',
         marginTop: 8,
+    },
+    replyButton:{
+      ...GlobalStyles.button,
+      padding: 0,
+      alignSelf: 'flex-end',
     },
     replyActionsContainer:{
         flex: 1,
@@ -99,6 +91,7 @@ const styles = StyleSheet.create({
     },
     replyInput: {
         ...GlobalStyles.textInput,
+        flexGrow: 1,
     },
     cancelReplyButton: {
         ...GlobalStyles.cancelButton,

@@ -1,3 +1,4 @@
+import FadeInView from "@/animations/FadeInView";
 import AppTitle from "@/components/AppTitle";
 import EventList from "@/components/events/EventList";
 import WaitingScreen from "@/components/WaitingScreen";
@@ -48,9 +49,10 @@ export default function Main() {
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <AppTitle showSubtitle={true} />
+    <FadeInView style={{ flex: 1 }} duration={2000}>
+      <ScrollView>
+        <View style={styles.container}>
+          <AppTitle showSubtitle={true} userName={user?.user.name} />
           {events.length > 0 ? (
             <EventList
               events={events}
@@ -96,6 +98,7 @@ export default function Main() {
         </Pressable>
       </View>
     </ScrollView>
+    </FadeInView>
   );
 
   async function fetchRandomEvents() {

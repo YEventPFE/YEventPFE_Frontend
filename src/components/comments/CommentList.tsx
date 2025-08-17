@@ -44,6 +44,8 @@ export default CommentList;
 
 const styles = StyleSheet.create({
     container: {
-        ...GlobalStyles.container
+        ...GlobalStyles.container,
+        padding: 2,
+        alignItems: 'flex-start',
     }
 });
