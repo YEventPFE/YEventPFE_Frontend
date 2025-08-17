@@ -14,6 +14,7 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function Main() {
   const { t } = useTranslation();
@@ -101,6 +102,7 @@ export default function Main() {
     </FadeInView>
   );
 
+
   async function fetchRandomEvents() {
     console.debug("Fetching random events...");
     setLoading(true);
@@ -109,6 +111,11 @@ export default function Main() {
       setEvents(randomEvents);
     } catch (error) {
       console.error("Error fetching random events:", error);
+      Toast.show({
+        type: 'error',
+        text1: t('error_fetching_events'),
+        text2: t('please_try_again_later'),
+      });
     } finally {
       setLoading(false);
     }

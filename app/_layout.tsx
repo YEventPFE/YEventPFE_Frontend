@@ -7,6 +7,7 @@ import React, { Children } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 import GlobalStyles from '@/styles/global';
+import Toast from 'react-native-toast-message';
 
 export default function RootLayout() {
   return (
@@ -20,6 +21,7 @@ export default function RootLayout() {
           animationDuration: 300,
         }}
         />
+        <Toast />
       </SafeAreaView>
     </AppProviders>
   );
