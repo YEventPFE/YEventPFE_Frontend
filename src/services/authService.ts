@@ -18,7 +18,8 @@ export const login = async (name: string, password: string): Promise<LoginRespon
   });
 
   if (!response.ok) {
-    throw new Error('Login failed');
+    const bodyMessage = await response.text();
+    throw new Error('Login failed : ' + bodyMessage);
   }
 
   //parse 'userDto' from response
@@ -64,7 +65,8 @@ export const register = async (name: string, password: string, email: string, bi
   });
 
   if (!response.ok) {
-    throw new Error('Registration failed');
+    const bodyMessage = await response.text();
+    throw new Error('Registration failed : ' + bodyMessage);
   }
 
   return {

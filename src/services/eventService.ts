@@ -11,7 +11,8 @@ export const getEventById = async (id: string): Promise<EventDTO> => {
     headers: { 'Content-Type': 'application/json' }
   });
   if (!response.ok) {
-    throw new Error('Failed to fetch event');
+    const bodyMessage = await response.text();
+    throw new Error('Failed to fetch event: ' + bodyMessage);
   }
   const rawEvent = await response.json();
   const event: EventDTO = normalizeDotNetJson<EventDTO>(rawEvent);
@@ -30,7 +31,8 @@ export const getEvents = async (): Promise<EventDTO[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch events');
+    const bodyMessage = await response.text();
+    throw new Error('Failed to fetch events: ' + bodyMessage);
   }
 
   const events: EventDTO[] = await response.json();
@@ -54,7 +56,8 @@ export const getForthcomingEventsByOwner = async (token: string): Promise<EventD
 
   console.debug("response :", response);
   if (!response.ok) {
-    throw new Error('Failed to fetch events by owner');
+    const bodyMessage = await response.text();
+    throw new Error('Failed to fetch events by owner: ' + bodyMessage);
   }
 
   const events: EventDTO[] = await response.json();
@@ -73,7 +76,8 @@ export const getRandomEvents = async (count: number): Promise<EventDTO[]> => {
   });
 
   if (!response.ok) {
-    throw new Error('Failed to fetch random events');
+    const bodyMessage = await response.text();
+    throw new Error('Failed to fetch random events: ' + bodyMessage);
   }
 
   const rawEvents = await response.json();
@@ -97,7 +101,8 @@ export const createEvent = async (token: string, event: CreatedEventDTO): Promis
   });
 
   if (!response.ok) {
-    throw new Error('Failed to create event');
+    const bodyMessage = await response.text();
+    throw new Error('Failed to create event: ' + bodyMessage);
   }
   const rawEvent = await response.json();
   const deserializedEvent: EventDTO = normalizeDotNetJson<EventDTO>(rawEvent);

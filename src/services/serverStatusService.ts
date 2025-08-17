@@ -12,7 +12,8 @@ export const getServerVersion = async (): Promise<string> => {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to fetch server version');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to fetch server version: ' + bodyMessage);
     }
 
     if (!response.headers.get('Content-Type')?.includes('application/json')) {

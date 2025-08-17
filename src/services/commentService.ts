@@ -23,7 +23,8 @@ export const addComment = async (token: string, body: AddCommentDTO): Promise<Co
   });
 
   if (!response.ok) {
-    throw new Error('Failed to add comment ' + response.statusText);
+    const bodyMessage = await response.text();
+    throw new Error('Failed to add comment: ' + bodyMessage);
   }
 
   const rawComment = await response.json();
@@ -47,7 +48,8 @@ export const replyToComment = async (token: string, comment: ReplyToCommentDTO):
   });
 
   if (!response.ok) {
-    throw new Error('Failed to reply to comment');
+    const bodyMessage = await response.text();
+    throw new Error('Failed to reply to comment: ' + bodyMessage);
   }
 
   const rawComment = await response.json();

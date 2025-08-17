@@ -18,7 +18,8 @@ export const getUserFriendList = async (token: string): Promise<UserListDTO> => 
     });
 
     if (!response.ok) {
-        throw new Error('Failed to fetch user list');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to fetch user list: ' + bodyMessage);
     }
 
     const rawResponse: UserListDTO = await response.json();
@@ -42,7 +43,8 @@ export const getUserRequests = async (token: string): Promise<FriendRequestDTO[]
     });
 
     if (!response.ok) {
-        throw new Error('Failed to fetch user requests');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to fetch user requests: ' + bodyMessage);
     }
 
     const rawResponse: FriendRequestDTO[] = await response.json();
@@ -65,7 +67,8 @@ export const addFriend = async (token: string, friendId: string): Promise<void> 
     });
 
     if (!response.ok) {
-        throw new Error('Failed to add friend');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to add friend: ' + bodyMessage);
     }
 }
 
@@ -85,7 +88,8 @@ export const cancelFriendRequest = async (token: string, friendId: string): Prom
 
     console.log("response code :", response.status)
     if (!response.ok) {
-        throw new Error('Failed to cancel friend request');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to cancel friend request: ' + bodyMessage);
     }
 }
 
@@ -104,7 +108,8 @@ export const removeFriend = async (token: string, friendId: string): Promise<voi
     });
 
     if (!response.ok) {
-        throw new Error('Failed to remove friend');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to remove friend: ' + bodyMessage);
     }
 }
 
@@ -123,7 +128,8 @@ export const acceptFriendRequest = async (token: string, requestId: string): Pro
     });
 
     if (!response.ok) {
-        throw new Error('Failed to accept friend request');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to accept friend request: ' + bodyMessage);
     }
 }
 
@@ -142,6 +148,7 @@ export const declineFriendRequest = async (token: string, requestId: string): Pr
     });
 
     if (!response.ok) {
-        throw new Error('Failed to decline friend request');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to decline friend request: ' + bodyMessage);
     }
 }

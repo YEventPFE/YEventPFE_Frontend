@@ -17,7 +17,8 @@ export const getUserProfile = async (token: string, userId: string): Promise<Use
     });
 
     if (!response.ok) {
-        throw new Error('Failed to fetch user profile');
+        const bodyMessage = await response.text();
+        throw new Error('Failed to fetch user profile: ' + bodyMessage);
     }
 
     const rawJson : UserProfileDTO = await response.json();
