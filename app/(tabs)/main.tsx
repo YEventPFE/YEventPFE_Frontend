@@ -107,7 +107,6 @@ export default function Main() {
     console.debug("Fetching random events...");
     setLoading(true);
     try {
-      throw new Error("Simulated error for testing");
       const randomEvents = await getRandomEvents(6);
       setEvents(randomEvents);
     } catch (error) {
