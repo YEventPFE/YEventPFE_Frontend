@@ -13,6 +13,7 @@ import {
   Text,
   View
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 
 export default function CreateEvent() {
@@ -28,6 +29,12 @@ export default function CreateEvent() {
       var createdEvent = await createEvent(event);
       navigateToEventDetail(createdEvent, true);
     } catch (err: any) {
+      console.error("Error creating event:", err);
+      Toast.show({
+        type: 'error',
+        text1: t('error_creating_event'),
+        text2: (err as Error).message || t('please_try_again_later'),
+      });
       setError(err.message || "Event creation failed");
     } finally {
       setLoading(false);

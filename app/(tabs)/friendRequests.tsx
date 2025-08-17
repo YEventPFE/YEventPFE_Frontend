@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { FriendRequestDTO } from "@/dto/friendDTO";
 import { fetchAndSetPendingFriendRequests, useOnAcceptFriendRequest, useOnDeclineFriendRequest } from "@/viewModels/friendViewModel";
 import FriendRequests from "@/components/friendrequests/FriendRequests";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 
 export default function friendRequests() {
@@ -20,13 +21,27 @@ export default function friendRequests() {
 
     useEffect(() => {
     fetchUserAndRedirect(router, setUser)
-        .catch(err => setError(err.message))
+        .catch(err => {
+          setError(err.message);
+          Toast.show({
+            type: 'error',
+            text1: t('error_fetching_user'),
+            text2: (err as Error).message || t('please_try_again_later'),
+          });
+        });
     }, []);
 
     useEffect(() => {
     if (user) {
         fetchAndSetPendingFriendRequests(user.token, setFriendRequests)
-        .catch(err => setError(err.message))
+        .catch(err => {
+          setError(err.message);
+          Toast.show({
+            type: 'error',
+            text1: t('error_loading_friend_requests'),
+            text2: (err as Error).message || t('please_try_again_later'),
+          });
+        })
         .finally(() => setLoading(false));
     }
     }, [user]);

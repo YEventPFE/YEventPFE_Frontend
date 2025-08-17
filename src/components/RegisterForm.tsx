@@ -23,6 +23,7 @@ import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 import CrossPlatformDatePicker from "./CrossPlatformDatePicker";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const RegisterForm : React.FC<RegisterFormProps> = ({
   onSubmit,
@@ -46,6 +47,11 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
         try {
             await onSubmit(username, password, email, birthdate!, phoneNumber);
         } catch (err: any) {
+            Toast.show({
+                type: 'error',
+                text1: t('error_registering'),
+                text2: (err as Error).message || t('please_try_again_later'),
+            });
             setError(err.message || "Registration failed");
         } finally {
             setLoading(false);

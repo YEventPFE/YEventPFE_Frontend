@@ -12,6 +12,7 @@ import NotLoggedIn from "@/components/NotLoggedIn";
 import { CommentDTO } from "@/dto/commentDTO";
 import { goToEventByComment } from "@/viewModels/eventViewModel";
 import { useNavigateToEvent } from "@/viewModels/navigationViewModel";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export default function UserProfile() {
   const { t } = useTranslation();
@@ -32,6 +33,11 @@ export default function UserProfile() {
       fetchAndSetUserProfile(id, setUserProfile);
       fetchUserAndRedirect(router, setConnectedUser);
     } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: t('error_fetching_user_profile'),
+        text2: (error as Error).message || t('please_try_again_later'),
+      });
       console.error("Error fetching user profile:", error);
     } finally {
       setLoading(false);

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View, Text } from "react-native";
 import FriendList from "@/components/friends/FriendList";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 
 export default function MyFriendList(){
@@ -19,13 +20,27 @@ export default function MyFriendList(){
 
     useEffect(() => {
         fetchUserAndRedirect(router, setUser)
-            .catch(err => setError(err.message))
-        }, []);
-    
+            .catch(err => {
+                setError(err.message);
+                Toast.show({
+                    type: 'error',
+                    text1: t('error_fetching_user'),
+                    text2: (err as Error).message || t('please_try_again_later'),
+                });
+            });
+    }, []);
+
     useEffect(() => {
     if (user) {
         fetchAndSetUserList(user.token, setFriendList)
-        .catch(err => setError(err.message))
+        .catch(err => {
+            setError(err.message);
+            Toast.show({
+                type: 'error',
+                text1: t('error_loading_friendlist'),
+                text2: (err as Error).message || t('please_try_again_later'),
+            });
+        })
         .finally(() => setLoading(false));
     }
     }, [user]);

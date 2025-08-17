@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 
 export default function Login() {
@@ -23,6 +24,11 @@ export default function Login() {
               console.debug("Login successful:", response);
               router.replace("/(tabs)/main");
             } catch (error) {
+              Toast.show({
+                type: 'error',
+                text1: t('error_logging_in'),
+                text2: (error as Error).message || t('please_try_again_later'),
+              });
               console.error("Login failed:", error);
             }
           }}

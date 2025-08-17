@@ -13,6 +13,7 @@ import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 import CrossPlatformDatePicker from "@/components/CrossPlatformDatePicker";
 import { CreatedEventDTO, EventDTO } from "@/dto/eventDTO";
+import Toast from "react-native-toast-message";
 
 
 export type CreateEventFormProps = {
@@ -63,6 +64,11 @@ const CreateEventForm: React.FC<CreateEventFormProps> = ({
             const filteredTags = tags.filter(tag => tag.trim() !== "");
             await onSubmit({name: title, description, startDate: startDate!, endDate: endDate!, location, tags: filteredTags, isPublic, isMature});
         } catch (err: any) {
+            Toast.show({
+                type: 'error',
+                text1: t('error_creating_event'),
+                text2: (err as Error).message || t('please_try_again_later'),
+            });
             setError(err.message || "Event creation failed");
         } finally {
             setLoadingCreation(false);

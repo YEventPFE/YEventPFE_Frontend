@@ -12,6 +12,7 @@ import AppTitle from "@/components/AppTitle";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export type LoginFormProps = {
   onSubmit: (username: string, password: string) => Promise<void>;
@@ -39,6 +40,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
     try {
       await onSubmit(username, password);
     } catch (err: any) {
+      Toast.show({
+        type: 'error',
+        text1: t('error_logging_in'),
+        text2: (err as Error).message || t('please_try_again_later'),
+      });
       setError(err.message || "Erreur de connexion");
     } finally {
       setLoading(false);
@@ -84,14 +90,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: Colors.background,
   },
   input: {
     ...GlobalStyles.textInput,
     marginBottom: 10,
   },
   error: {
-    color: Colors.error,
+    ...Typography.error,
     marginBottom: 10,
   },
   button: {

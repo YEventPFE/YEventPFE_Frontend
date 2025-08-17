@@ -5,6 +5,7 @@ import WaitingScreen from "@/components/WaitingScreen";
 import { Redirect } from "expo-router";
 import { UserDTO } from "@/dto/userDTO";
 import { getUser } from "@/viewModels/authViewModel";
+import Toast from "react-native-toast-message";
 
 export default function Index() {
   const { t } = useTranslation();
@@ -37,6 +38,11 @@ export default function Index() {
           console.debug("No user found, preparing to redirect to login.");
         }
       } catch (error) {
+        Toast.show({
+          type: 'error',
+          text1: t('error_fetching_user'),
+          text2: (error as Error).message || t('please_try_again_later'),
+        });
         console.error("Error fetching user:", error);
       } finally {
         setLoadingGetUser(false);
