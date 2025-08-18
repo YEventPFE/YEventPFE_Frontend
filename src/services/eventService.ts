@@ -108,3 +108,27 @@ export const createEvent = async (token: string, event: CreatedEventDTO): Promis
   const deserializedEvent: EventDTO = normalizeDotNetJson<EventDTO>(rawEvent);
   return deserializedEvent;
 }
+
+export const editEvent = async (token: string, event: EventDTO): Promise<EventDTO> => {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  if (!apiUrl) {
+    throw new Error('API URL is not defined');
+  }
+
+  const response = await fetch(`${apiUrl}/events/Edit`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(event)
+  });
+
+  if (!response.ok) {
+    const bodyMessage = await response.text();
+    throw new Error('Failed to edit event: ' + bodyMessage);
+  }
+  const rawEvent = await response.json();
+  const deserializedEvent: EventDTO = normalizeDotNetJson<EventDTO>(rawEvent);
+  return deserializedEvent;
+}

@@ -32,6 +32,22 @@ export const useNavigateToEvent = () => {
     };
 };
 
+export const useNavigateToEditEvent = () => {
+    const { setSelectedEvent } = useEventContext();
+
+    return (event: EventDTO) => {
+        if (event && event.id && event.owner && event.comments) {
+            //if all required fields are present, cache event for next navigation
+            setSelectedEvent(event);
+        }
+
+        router.push({
+            pathname: '/(tabs)/editEvent',
+            params: { id: event.id }
+        });
+    };
+};
+
 export const useContextEvent = (): EventDTO | null => {
     const { selectedEvent } = useEventContext();
     return selectedEvent;

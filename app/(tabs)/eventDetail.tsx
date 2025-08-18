@@ -7,7 +7,7 @@ import { EventDTO } from "@/dto/eventDTO";
 import { useEffect, useState } from "react";
 import { UserDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect, getUser } from "@/viewModels/authViewModel";
-import { onUserPress, useContextEvent } from "@/viewModels/navigationViewModel";
+import { onUserPress, useContextEvent, useNavigateToEditEvent } from "@/viewModels/navigationViewModel";
 import { CommentDTO } from "@/dto/commentDTO";
 import { addComment, replyToComment } from "@/viewModels/eventViewModel";
 import GlobalStyles from "@/styles/global";
@@ -19,6 +19,8 @@ export default function EventDetail() {
   const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
   const [eventDetail, setEventDetail] = useState<EventDTO | null>(null);
   const [loading, setLoading] = useState(false);
+  const onEditEventPressed = useNavigateToEditEvent();
+
 
   useEffect(() => {
     fetchUserAndRedirect(router, setUser);
@@ -68,9 +70,23 @@ export default function EventDetail() {
     );
   }
 
+  const isOwnerOfEvent = user?.user.id === eventDetail?.owner?.id;
+
+  var onEditButtonPressed = undefined;
+  if (isOwnerOfEvent) {
+    onEditButtonPressed = onEditEventPressed;
+  }
+
+
   return (
     <ScrollView style={styles.container}>
-      <EventDetails event={eventDetail} onUserPress={onUserPress} onComment={handleAddComment} onReplyToComment={handleReplyToComment} />
+      <EventDetails
+        event={eventDetail}
+        onUserPress={onUserPress}
+        onComment={handleAddComment}
+        onReplyToComment={handleReplyToComment}
+        onEditButtonPressed={onEditButtonPressed}
+      />
     </ScrollView>
   );
 

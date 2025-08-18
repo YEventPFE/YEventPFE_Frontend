@@ -9,13 +9,15 @@ import { useState } from "react";
 import CommentInputs from "@/components/comments/CommentInputs";
 import { formatDate } from "@/utils/dateHelper";
 import EventList from "./EventList";
+import GlobalStyles from "@/styles/global";
 
 type EventDetailsProps = {
     event: EventDTO,
     onTagPress?: (tag: string) => void,
     onUserPress?: (userId: string) => void,
     onComment?: (event: EventDTO, commentText: string) => Promise<CommentDTO>,
-    onReplyToComment?: (comment: CommentDTO, replyText: string) => Promise<CommentDTO>
+    onReplyToComment?: (comment: CommentDTO, replyText: string) => Promise<CommentDTO>,
+    onEditButtonPressed?: (event: EventDTO) => void
 };
 
 export default function EventDetails({ 
@@ -23,7 +25,8 @@ export default function EventDetails({
     onTagPress: onTagPress, 
     onUserPress: onUserPress,
     onComment: onComment,
-    onReplyToComment: onReplyToComment 
+    onReplyToComment: onReplyToComment,
+    onEditButtonPressed: onEditButtonPressed
 }: EventDetailsProps) {
     const { t } = useTranslation();
 
@@ -63,6 +66,11 @@ export default function EventDetails({
                 ))}
             </View>
         </View>
+        {onEditButtonPressed && (
+            <Pressable onPress={handleEditButtonPressed} style={styles.editButton}>
+                <Text>{t("edit_event")}</Text>
+            </Pressable>
+        )}
         {onComment && <CommentInputs event={event} onComment={handleComment} />}
         <CommentList
           comments={mappedComments}
@@ -71,6 +79,12 @@ export default function EventDetails({
         />
       </View>
     );
+
+    function handleEditButtonPressed(){
+        if (onEditButtonPressed) {
+            onEditButtonPressed(event);
+        }
+    }
 
     async function handleComment(event: EventDTO, commentText: string): Promise<CommentDTO> {
         if (onComment) {
@@ -136,5 +150,9 @@ const styles = StyleSheet.create({
     tag: {
         ...Typography.tag,
         marginRight: 8,
+    },
+    editButton: {
+        ...GlobalStyles.button,
+        marginBottom: 8,
     },
 });

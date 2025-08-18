@@ -1,6 +1,6 @@
 import { AddCommentDTO, CommentDTO, ReplyToCommentDTO } from "@/dto/commentDTO";
 import { EventDTO, CreatedEventDTO } from "@/dto/eventDTO";
-import { createEvent as createEventService } from "@/services/eventService";
+import { createEvent as createEventService, editEvent as editEventService } from "@/services/eventService";
 import { replyToComment as replyToCommentService, addComment as addCommentService } from "@/services/commentService";
 import { getUser } from "@/viewModels/authViewModel";
 import { Router } from "expo-router";
@@ -36,4 +36,14 @@ export const goToEventByComment = async (router: Router, comment: CommentDTO) : 
         return;
     }
     router.push(`/event/${comment.event.id}`);
+};
+
+export const editEvent = async (event: EventDTO) : Promise<EventDTO> => {
+    const user = await getUser();
+    if (!user || !user.token) {
+        throw new Error('User is not authenticated');
+    }
+
+    const dto = await editEventService(user.token, event);
+    return dto;
 };
