@@ -85,12 +85,12 @@ export const useOnDeclineFriendRequest = (token: string) => {
 };
 
 export const fetchAndSetUserList = async (token: string, setUserList: (list: UserListDTO | null) => void) => {
-  getUserFriendList(token)
-    .then((list) => {
-      setUserList(list);
-    })
-    .catch((error) => {
-      console.error("Error fetching user friend list:", error);
-      setUserList(null);
-    });
+  try{
+    const list = await getUserFriendList(token);
+    setUserList(list);
+  } catch (error) {
+    console.error("Error fetching user friend list:", error);
+    setUserList(null);
+    throw error;
+  }
 };

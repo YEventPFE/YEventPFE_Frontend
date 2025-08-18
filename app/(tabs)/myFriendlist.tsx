@@ -32,17 +32,22 @@ export default function MyFriendList(){
 
     useEffect(() => {
     if (user) {
-        fetchAndSetUserList(user.token, setFriendList)
-        .catch(err => {
-            setError(err.message);
-            Toast.show({
-                type: 'error',
-                text1: t('error_loading_friendlist'),
-                text2: (err as Error).message || t('please_try_again_later'),
-            });
-        })
-        .finally(() => setLoading(false));
-    }
+        const loadFriendList = async () => {
+            try{
+                await fetchAndSetUserList(user.token, setFriendList);
+            } catch (err) {
+                setError((err as Error).message);
+                Toast.show({
+                    type: 'error',
+                    text1: t('error_loading_friendlist'),
+                    text2: (err as Error).message || t('please_try_again_later'),
+                });
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadFriendList();
+        }
     }, [user]);
 
     if (loading) {
