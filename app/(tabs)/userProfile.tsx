@@ -13,6 +13,7 @@ import { CommentDTO } from "@/dto/commentDTO";
 import { goToEventByComment } from "@/viewModels/eventViewModel";
 import { useNavigateToEvent } from "@/viewModels/navigationViewModel";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import GlobalStyles from "@/styles/global";
 
 export default function UserProfile() {
   const { t } = useTranslation();
@@ -100,6 +101,6 @@ export default function UserProfile() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    ...GlobalStyles.container,
   }
 });
