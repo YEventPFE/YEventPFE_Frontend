@@ -5,9 +5,10 @@ import { onUserPress } from "@/viewModels/navigationViewModel";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import FriendList from "@/components/friends/FriendList";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import GlobalStyles from "@/styles/global";
 
 
 export default function MyFriendList(){
@@ -65,10 +66,18 @@ export default function MyFriendList(){
     const onRemoveFriend = useOnRemoveFriendPress(user.token);
 
     return (
-        <FriendList
-            friends={friendList}
-            onPress={onUserPress}
-            onRemove={onRemoveFriend}
-        />
+        <ScrollView style={styles.container}>
+            <FriendList
+                friends={friendList}
+                onPress={onUserPress}
+                onRemove={onRemoveFriend}
+            />
+        </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        ...GlobalStyles.container,
+    }
+})

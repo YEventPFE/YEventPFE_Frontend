@@ -1,7 +1,9 @@
 import { UserDTO, UserListDTO, UserProfileDTO } from "@/dto/userDTO";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet} from "react-native";
 import FriendItem from "@/components/friends/FriendItem";
 import { useState } from "react";
+import GlobalStyles from "@/styles/global";
+import { useTranslation } from "react-i18next";
 
 type FriendListProps = {
   friends: UserListDTO;
@@ -10,6 +12,7 @@ type FriendListProps = {
 };
 
 const FriendList: React.FC<FriendListProps> = ({ friends, onRemove, onPress }) => {
+    const { t } = useTranslation();
     const [friendList, setFriendList] = useState<UserDTO[]>(friends.members);
     const handleRemove = async (id: string) : Promise<boolean> => {
         const success = await onRemove(id);
@@ -20,11 +23,11 @@ const FriendList: React.FC<FriendListProps> = ({ friends, onRemove, onPress }) =
     };
 
     if (friendList.length === 0) {
-        return <View><Text>No friends found</Text></View>;
+        return <View><Text>{t('no_friends_found')}</Text></View>;
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             {friendList.map((friend) => (
                 <FriendItem key={friend.id} friend={friend} onRemove={handleRemove} onPress={onPress} />
             ))}
@@ -32,3 +35,9 @@ const FriendList: React.FC<FriendListProps> = ({ friends, onRemove, onPress }) =
     );
 };
 export default FriendList;
+
+const styles = StyleSheet.create({
+    container: {
+        ...GlobalStyles.container,
+    },
+})
