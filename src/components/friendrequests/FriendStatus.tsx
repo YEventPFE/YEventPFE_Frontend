@@ -1,7 +1,8 @@
 import { FriendRequestStatus } from "@/dto/friendDTO";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, StyleSheet, View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import GlobalStyles from "@/styles/global";
 
 type FriendStatusProps = {
     userId : string,
@@ -63,9 +64,11 @@ const FriendStatus = ({ userId, friendRequestStatus, onAddFriendPress, onRemoveF
     
     if (friendRequestStatusState === FriendRequestStatus.Accepted && onRemoveFriendPress) {
         return (
-            <Pressable onPress={handleRemoveFriendPress}>
-                <Text>{t('remove_friend')}</Text>
-            </Pressable>
+            <View style={styles.actionButtonContainer}>
+                <Pressable onPress={handleRemoveFriendPress} style={styles.removeButton}>
+                    <Text>{t('remove_friend')}</Text>
+                </Pressable>
+            </View>
         );
     }
 
@@ -89,3 +92,13 @@ const FriendStatus = ({ userId, friendRequestStatus, onAddFriendPress, onRemoveF
 };
 
 export default FriendStatus;
+
+const styles = StyleSheet.create({
+    removeButton: {
+        ...GlobalStyles.cancelButton,
+    },
+    actionButtonContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+    },
+})

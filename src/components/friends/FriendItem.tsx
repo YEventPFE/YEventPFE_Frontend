@@ -17,7 +17,7 @@ const FriendItem: React.FC<FriendItemProps> = ({ friend, onRemove, onPress }) =>
             <Text onPress={() => onPress(friend.id)}>{friend.name}</Text>
             <View style={styles.actionButtonsContainer}>
                 <Pressable onPress={() => onRemove(friend.id)} style={styles.removeButton}>
-                    <Text>{t('remove')}</Text>
+                    <Text>{t('remove_friend')}</Text>
                 </Pressable>
             </View>
         </View>
