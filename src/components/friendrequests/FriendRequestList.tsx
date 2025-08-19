@@ -1,7 +1,8 @@
 import { FriendRequestDTO } from "@/dto/friendDTO";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useTranslation } from "react-i18next";
 import FriendRequestItem from "@/components/friendrequests/FriendRequestItem";
+import GlobalStyles from "@/styles/global";
 
 type FriendRequestListProps = {
     friendRequests: FriendRequestDTO[];
@@ -16,7 +17,7 @@ const FriendRequestList: React.FC<FriendRequestListProps> = ({ friendRequests, o
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             {friendRequests.map((request) => (
                 <FriendRequestItem
                     key={request.id}
@@ -30,3 +31,9 @@ const FriendRequestList: React.FC<FriendRequestListProps> = ({ friendRequests, o
 }
 
 export default FriendRequestList;
+
+const styles = StyleSheet.create({
+    container: {
+        ...GlobalStyles.container,
+    }
+});

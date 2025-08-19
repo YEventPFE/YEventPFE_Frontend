@@ -1,6 +1,8 @@
 import { FriendRequestDTO } from "@/dto/friendDTO";
 import FriendRequestList from "./FriendRequestList";
 import { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import GlobalStyles from "@/styles/global";
 
 type FriendRequestsProps = {
   pendingRequests: FriendRequestDTO[];
@@ -32,11 +34,19 @@ const FriendRequests: React.FC<FriendRequestsProps> = ({
     };
 
     return (
-        <FriendRequestList
-            friendRequests={requests}
-            onAccept={handleAccept}
-            onDecline={handleDecline}
-        />
+        <View style={styles.container}>
+            <FriendRequestList
+                friendRequests={requests}
+                onAccept={handleAccept}
+                onDecline={handleDecline}
+                />
+        </View>
     );
 };
 export default FriendRequests;
+
+const styles = StyleSheet.create({
+    container: {
+        ...GlobalStyles.container,
+    }
+});

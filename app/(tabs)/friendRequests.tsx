@@ -1,13 +1,15 @@
 import { UserDTO } from "@/dto/userDTO";
 import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
 import { router } from "expo-router";
-import { Text } from "react-native";
+import { Text, StyleSheet, ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FriendRequestDTO } from "@/dto/friendDTO";
 import { fetchAndSetPendingFriendRequests, useOnAcceptFriendRequest, useOnDeclineFriendRequest } from "@/viewModels/friendViewModel";
 import FriendRequests from "@/components/friendrequests/FriendRequests";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import Typography from "@/constants/typography";
+import GlobalStyles from "@/styles/global";
 
 
 export default function friendRequests() {
@@ -62,13 +64,23 @@ export default function friendRequests() {
     const onDecline = useOnDeclineFriendRequest(user.token);
     if (friendRequests) {
         return (
-            <FriendRequests
-                pendingRequests={friendRequests}
-                onAccept={onAccept}
-                onDecline={onDecline}
-            />
+            <ScrollView style={styles.container}>
+                <View>
+                <FriendRequests
+                    pendingRequests={friendRequests}
+                    onAccept={onAccept}
+                    onDecline={onDecline}
+                    />
+                </View>
+            </ScrollView>
         );
     }
 
     return <Text>{t('no_friend_requests')}</Text>;
 }
+
+const styles = StyleSheet.create({
+    container: {
+        ...GlobalStyles.container,
+    }
+});
