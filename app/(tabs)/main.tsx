@@ -2,7 +2,6 @@ import FadeInView from "@/animations/FadeInView";
 import AppTitle from "@/components/AppTitle";
 import EventList from "@/components/events/EventList";
 import WaitingScreen from "@/components/WaitingScreen";
-import Colors from "@/constants/colors";
 import { EventDTO } from "@/dto/eventDTO";
 import { UserDTO } from "@/dto/userDTO";
 import { getRandomEvents } from "@/services/eventService";

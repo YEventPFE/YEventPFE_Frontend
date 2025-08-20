@@ -3,8 +3,6 @@ import { login } from "@/viewModels/authViewModel";
 import { useTranslation } from "react-i18next";
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { useRouter } from "expo-router";
-import Colors from "@/constants/colors";
-import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 

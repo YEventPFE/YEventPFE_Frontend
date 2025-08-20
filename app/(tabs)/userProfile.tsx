@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
-import EventDetails from "@/components/events/EventDetails";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import UserDetails from "@/components/user/UserDetails";
@@ -9,8 +8,6 @@ import { fetchUserAndRedirect } from "@/viewModels/authViewModel";
 import { fetchAndSetUserProfile } from "@/viewModels/profileViewModel";
 import { useOnAddFriendPress, useOnCancelFriendRequestPress, useOnRemoveFriendPress } from "@/viewModels/friendViewModel";
 import NotLoggedIn from "@/components/NotLoggedIn";
-import { CommentDTO } from "@/dto/commentDTO";
-import { goToEventByComment } from "@/viewModels/eventViewModel";
 import { useNavigateToEvent } from "@/viewModels/navigationViewModel";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import GlobalStyles from "@/styles/global";

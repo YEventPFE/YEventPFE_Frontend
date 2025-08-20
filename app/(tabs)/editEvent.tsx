@@ -30,7 +30,7 @@ useEffect(() => {
     }
 
     load();
-}, []);
+}, [router, selectedEvent]);
 
   if (loading) {
     return (

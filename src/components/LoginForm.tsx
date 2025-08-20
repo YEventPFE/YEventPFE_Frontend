@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import AppTitle from "@/components/AppTitle";
-import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 import { Toast } from "react-native-toast-message/lib/src/Toast";

@@ -26,7 +26,7 @@ export default function CreateEvent() {
     setLoading(true);
     setError(null);
     try {
-      var createdEvent = await createEvent(event);
+      const createdEvent = await createEvent(event);
       navigateToEventDetail(createdEvent, true);
     } catch (err: any) {
       console.error("Error creating event:", err);

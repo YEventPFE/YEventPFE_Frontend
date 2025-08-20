@@ -1,5 +1,5 @@
 import Colors from "@/constants/colors";
-import { UserDTO, UserProfileDTO } from "@/dto/userDTO";
+import { UserDTO } from "@/dto/userDTO";
 import GlobalStyles from "@/styles/global";
 import { useTranslation } from "react-i18next";
 import { Pressable, Text, View, StyleSheet } from "react-native";

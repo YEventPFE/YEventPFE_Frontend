@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ScrollView, View, Pressable, Text } from "react-native";
-import { EventListProps, style } from "./EventList";
+import { View, Pressable, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import { EventDTO } from "@/dto/eventDTO";
 import Colors from "@/constants/colors";

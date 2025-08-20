@@ -72,11 +72,7 @@ export default function EventDetail() {
 
   const isOwnerOfEvent = user?.user.id === eventDetail?.owner?.id;
 
-  var onEditButtonPressed = undefined;
-  if (isOwnerOfEvent) {
-    onEditButtonPressed = onEditEventPressed;
-  }
-
+  const onEditButtonPressed = isOwnerOfEvent ? onEditEventPressed : undefined;
 
   return (
     <ScrollView style={styles.container}>

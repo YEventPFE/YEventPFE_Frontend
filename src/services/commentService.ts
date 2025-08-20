@@ -1,5 +1,4 @@
 import { AddCommentDTO, CommentDTO, ReplyToCommentDTO } from "@/dto/commentDTO";
-import { EventDTO } from "@/dto/eventDTO";
 import { normalizeDotNetJson } from "@/utils/deserializeHelper";
 
 type ReturnedDTO = {

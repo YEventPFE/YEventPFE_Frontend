@@ -1,4 +1,4 @@
-import { UserDTO, UserListDTO, UserProfileDTO } from "@/dto/userDTO";
+import { UserDTO, UserListDTO } from "@/dto/userDTO";
 import { View, Text, StyleSheet} from "react-native";
 import FriendItem from "@/components/friends/FriendItem";
 import { useState } from "react";

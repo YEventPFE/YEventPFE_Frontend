@@ -19,7 +19,6 @@ export type RegisterFormProps = {
   buttonLabel?: string;
 };
 
-import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 import CrossPlatformDatePicker from "./CrossPlatformDatePicker";

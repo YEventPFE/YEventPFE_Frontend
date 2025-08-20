@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet, Pressable, ScrollView } from "react-native";
+import { View, Text,StyleSheet } from "react-native";
 import Colors from "@/constants/colors";
 import Typography from "@/constants/typography";
 import { useTranslation } from "react-i18next";

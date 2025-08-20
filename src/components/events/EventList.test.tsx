@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, userEvent } from '@testing-library/react-native';
+import { render, fireEvent } from '@testing-library/react-native';
 import { useTranslation } from "react-i18next";
 import { EventDTO } from '@/dto/eventDTO';
 import EventList from '@/components/events/EventList';

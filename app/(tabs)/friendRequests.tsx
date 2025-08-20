@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FriendRequestDTO } from "@/dto/friendDTO";
 import { fetchAndSetPendingFriendRequests, useOnAcceptFriendRequest, useOnDeclineFriendRequest } from "@/viewModels/friendViewModel";
-import FriendRequests from "@/components/friendrequests/FriendRequests";
+import FriendRequestsComponent from "@/components/friendrequests/FriendRequests";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 
 
-export default function friendRequests() {
+export default function FriendRequests() {
     const { t } = useTranslation();
     const [user, setUser] = useState<{ token: string , user: UserDTO } | undefined>(undefined);
     const [friendRequests, setFriendRequests] = useState<FriendRequestDTO[] | null>(null);
@@ -66,7 +66,7 @@ export default function friendRequests() {
         return (
             <ScrollView style={styles.container}>
                 <View>
-                <FriendRequests
+                <FriendRequestsComponent
                     pendingRequests={friendRequests}
                     onAccept={onAccept}
                     onDecline={onDecline}

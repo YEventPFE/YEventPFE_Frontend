@@ -3,7 +3,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Stack } from "expo-router";
 import i18n from '@/internationalization/i18n';
 import { EventProvider } from '@/context/EventContext';
-import React, { Children } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native';
 import GlobalStyles from '@/styles/global';

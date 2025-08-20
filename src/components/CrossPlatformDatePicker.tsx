@@ -1,6 +1,6 @@
 import React, { useState, } from "react";
 import { Platform, View, Button, StyleSheet } from "react-native";
-import DateTimePicker, { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import DatePickerWeb from "react-datepicker";
 import GlobalStyles from "@/styles/global";
 if (Platform.OS === "web") {

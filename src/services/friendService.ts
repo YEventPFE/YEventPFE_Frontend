@@ -1,5 +1,5 @@
 import { FriendRequestDTO } from "@/dto/friendDTO";
-import { UserListDTO, UserDTO } from "@/dto/userDTO";
+import { UserListDTO } from "@/dto/userDTO";
 import { normalizeDotNetJson } from "@/utils/deserializeHelper";
 
 export const getUserFriendList = async (token: string): Promise<UserListDTO> => {

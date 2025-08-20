@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import Colors from '@/constants/colors';
-import Typography from '@/constants/typography';
 import GlobalStyles from '@/styles/global';
 import { CommentDTO } from '@/dto/commentDTO';
 import CommentListItem from '@/components/comments/CommentListItem';
