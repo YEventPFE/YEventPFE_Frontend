@@ -21,6 +21,10 @@ export default function UserProfile() {
 
   const onEventPress = useNavigateToEvent();
 
+  const onAddFriendPress = useOnAddFriendPress(connectedUser?.token ?? "");
+  const onCancelFriendRequestPress = useOnCancelFriendRequestPress(connectedUser?.token ?? "");
+  const onRemoveFriendPress = useOnRemoveFriendPress(connectedUser?.token ?? "");
+
   useEffect(() => {
     if (!id) {
       console.error("No user ID provided in search params.");
@@ -58,9 +62,6 @@ export default function UserProfile() {
     );
   }
 
-  const onAddFriendPress = useOnAddFriendPress(connectedUser.token);
-  const onCancelFriendRequestPress = useOnCancelFriendRequestPress(connectedUser.token);
-  const onRemoveFriendPress = useOnRemoveFriendPress(connectedUser.token);
 
   if (!userProfile) {
     return (

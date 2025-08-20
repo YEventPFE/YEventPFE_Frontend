@@ -8,7 +8,6 @@ import { FriendRequestDTO } from "@/dto/friendDTO";
 import { fetchAndSetPendingFriendRequests, useOnAcceptFriendRequest, useOnDeclineFriendRequest } from "@/viewModels/friendViewModel";
 import FriendRequestsComponent from "@/components/friendrequests/FriendRequests";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import Typography from "@/constants/typography";
 import GlobalStyles from "@/styles/global";
 
 
@@ -19,7 +18,9 @@ export default function FriendRequests() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
-  
+      
+    const onAccept = useOnAcceptFriendRequest(user?.token ?? "");
+    const onDecline = useOnDeclineFriendRequest(user?.token ?? "");
 
     useEffect(() => {
     fetchUserAndRedirect(router, setUser)
@@ -31,7 +32,7 @@ export default function FriendRequests() {
             text2: (err as Error).message || t('please_try_again_later'),
           });
         });
-    }, []);
+    }, [t]);
 
     useEffect(() => {
     if (user) {
@@ -46,7 +47,7 @@ export default function FriendRequests() {
         })
         .finally(() => setLoading(false));
     }
-    }, [user]);
+    }, [user, t]);
 
     if (loading) {
         return <Text>{t('loading')}</Text>;
@@ -59,9 +60,7 @@ export default function FriendRequests() {
     if (error) {
         return <Text>{t('error_loading_friend_requests', { error })}</Text>;
     }
-    
-    const onAccept = useOnAcceptFriendRequest(user.token);
-    const onDecline = useOnDeclineFriendRequest(user.token);
+
     if (friendRequests) {
         return (
             <ScrollView style={styles.container}>

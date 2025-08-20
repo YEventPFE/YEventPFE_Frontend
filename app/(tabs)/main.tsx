@@ -34,7 +34,7 @@ export default function Main() {
     };
     fetchUserAndRedirect(router, setUser);
     fetchEvents();
-  }, []);
+  }, [router]);
 
   if (!fontsLoaded) {
     return (

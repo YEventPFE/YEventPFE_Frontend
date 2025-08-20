@@ -5,7 +5,7 @@ import { onUserPress } from "@/viewModels/navigationViewModel";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Text, StyleSheet, ScrollView } from "react-native";
 import FriendList from "@/components/friends/FriendList";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import GlobalStyles from "@/styles/global";
@@ -18,6 +18,7 @@ export default function MyFriendList(){
     const [loading, setLoading] = useState<boolean>(true);
     const [friendList, setFriendList] = useState<UserListDTO | null>(null);
 
+    const onRemoveFriend = useOnRemoveFriendPress(user?.token ?? "");
 
     useEffect(() => {
         fetchUserAndRedirect(router, setUser)
@@ -29,7 +30,7 @@ export default function MyFriendList(){
                     text2: (err as Error).message || t('please_try_again_later'),
                 });
             });
-    }, []);
+    }, [t]);
 
     useEffect(() => {
     if (user) {
@@ -49,7 +50,7 @@ export default function MyFriendList(){
         }
         loadFriendList();
         }
-    }, [user]);
+    }, [user,t]);
 
     if (loading) {
         return <Text>{t('loading')}</Text>;
@@ -63,7 +64,6 @@ export default function MyFriendList(){
         return <Text>{t('error_loading_friendlist')}, { error }</Text>;
     }
 
-    const onRemoveFriend = useOnRemoveFriendPress(user.token);
 
     return (
         <ScrollView style={styles.container}>
