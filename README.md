@@ -1,50 +1,54 @@
-# Welcome to your Expo app 👋
+# YEvent
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+YEvent_Front est la partie front de l'application YEvent développée avec [Expo](https://expo.dev/) en React Native.
 
-## Get started
+## Prérequis
 
-1. Install dependencies
-
+Avant de commencer, assurez-vous d'avoir installé :
+- [Node.js](https://nodejs.org/) **v22.13** ou supérieur
+- [npm](https://www.npmjs.com/) (installé avec Node.js)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/) :  
    ```bash
-   npm install
+   npm install -g expo-cli
    ```
+- Expo SDK **53**
+- Un éditeur de code (ex : [Visual Studio Code](https://code.visualstudio.com/))
+- Un émulateur mobile ou un appareil physique pour tester l’application
 
-2. Start the app
+## Installation
 
-   ```bash
-   npx expo start
-   ```
+1. Clonez le dépôt.
+2. Installez les dépendances :
+    ```bash
+    npm install
+    ```
+3. Configurez le fichier `.env` avant le premier lancement avec l'adresse du serveur YEvent_back.
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Lancement de l'application
 
 ```bash
-npm run reset-project
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Traduction
 
-## Learn more
+Une commande i18n est disponible pour rajouter les traductions manquantes dans les fichiers json de i18n :
+```bash
+npm run i18n:extract
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Linting
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Pour vérifier le code avec ESLint :
+```bash
+npm run lint
+```
+Ou utiliser l'extension VSCode ESLint.
 
-## Join the community
+## Tests
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Pour lancer les tests avec Jest :
+```bash
+npm run test
+```
+Cela va générer un rapport de test dans ./test-report.html
