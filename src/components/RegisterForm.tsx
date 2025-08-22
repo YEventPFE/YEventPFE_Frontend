@@ -8,6 +8,11 @@ import {
   ActivityIndicator
 } from "react-native";
 import {useTranslation} from "react-i18next";
+import Typography from "@/constants/typography";
+import GlobalStyles from "@/styles/global";
+import CrossPlatformDatePicker from "./CrossPlatformDatePicker";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+
 export type RegisterFormProps = {
   onSubmit: (
     username: string,
@@ -18,11 +23,6 @@ export type RegisterFormProps = {
   ) => Promise<void>;
   buttonLabel?: string;
 };
-
-import Typography from "@/constants/typography";
-import GlobalStyles from "@/styles/global";
-import CrossPlatformDatePicker from "./CrossPlatformDatePicker";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const RegisterForm : React.FC<RegisterFormProps> = ({
   onSubmit,
@@ -69,6 +69,7 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
                 placeholder={t("password")}
                 value={password}
                 onChangeText={setPassword}
+                autoCapitalize="none"
                 secureTextEntry
                 style={styles.input}
             />
@@ -90,7 +91,12 @@ const RegisterForm : React.FC<RegisterFormProps> = ({
             <TextInput
                 placeholder={t("phoneNumber")}
                 value={phoneNumber}
-                onChangeText={setPhoneNumber}
+                maxLength={15}
+                
+                onChangeText={(text: string) => {
+                    const formatted = text.replace(/[^0-9+]/g, "");
+                    setPhoneNumber(formatted);
+                }}
                 autoCapitalize="none"
                 style={styles.input}
             />
