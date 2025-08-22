@@ -62,40 +62,42 @@ export default function Main() {
           ) : (
             <Text>{t("no_events_found")}</Text>
           )}
-        <Pressable
-          style={styles.createEventButton}
-          onPress={() => {
-            console.debug("Navigating to create event");
-            router.push("/(tabs)/createEvent");
-          }}
-        >
-          <Text>{t("create_event")}</Text>
-        </Pressable>
-        <Pressable
-          style={styles.logOutButton}
-          onPress={() => {
-            logOut();
-            router.replace("/(auth)/login");
-          }}
-        >
-          <Text>{t("logout")}</Text>
-        </Pressable>
-        <Pressable
-          style={styles.logOutButton}
-          onPress={() => {
-            router.push("/(tabs)/friendRequests");
-          }}
-        >
-          <Text>{t("friend_requests")}</Text>
-        </Pressable>
-        <Pressable
-          style={styles.logOutButton}
-          onPress={() => {
-            router.push("/(tabs)/myFriendlist");
-          }}
-        >
-          <Text>{t("my_friends")}</Text>
-        </Pressable>
+        <View style={styles.buttonGroup}>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              console.debug("Navigating to create event");
+              router.push("/(tabs)/createEvent");
+            }}
+          >
+            <Text>{t("create_event")}</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              logOut();
+              router.replace("/(auth)/login");
+            }}
+          >
+            <Text>{t("logout")}</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              router.push("/(tabs)/friendRequests");
+            }}
+          >
+            <Text>{t("friend_requests")}</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              router.push("/(tabs)/myFriendlist");
+            }}
+          >
+            <Text>{t("my_friends")}</Text>
+          </Pressable>
+        </View>
       </View>
     </ScrollView>
     </FadeInView>
@@ -125,12 +127,15 @@ const styles = StyleSheet.create({
   container: {
     ...GlobalStyles.container,
   },
-  createEventButton: {
-    ...GlobalStyles.button,
-    margin: 8,
+  buttonGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    flexWrap: 'wrap',
   },
-  logOutButton: {
+  button:{
     ...GlobalStyles.button,
     margin: 8,
+    width: '45%',
   }
 });
